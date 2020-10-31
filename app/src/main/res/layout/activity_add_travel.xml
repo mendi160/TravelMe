@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Ui.AddTravelActivity">
 
     <EditText
@@ -37,7 +38,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/your_source_address"
         />
-    <EditTextj
+    <EditText
         android:layout_below="@+id/sourceAddress"
         android:id="@+id/destinationAddress"
         android:layout_width="match_parent"
@@ -51,6 +52,35 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="?android:attr/listDivider" />
+    <LinearLayout
+        android:layout_below="@id/destinationAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/minusP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Less"
+            android:onClick="less"
+            />
+        <EditText
+            android:id="@+id/passengers"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="number of passengers"
+            android:inputType="number"/>
+        <Button
+            android:id="@+id/plusP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:onClick="more"
+            app:icon="@drawable/baseline_add_24"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            />
+    </LinearLayout>
 
 
 </RelativeLayout>
