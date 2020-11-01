@@ -19,6 +19,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var passengersEditText: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_add_travel)
         Toast.makeText(this, "hi", Toast.LENGTH_LONG).show()
         passengersEditText = findViewById<EditText>(passengers)
@@ -54,7 +55,7 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     fun more(view: View) {
-        showDialog()
+
         if (passengersEditText.text.toString() == "")
             passengersEditText.setText("1")
         else {
@@ -62,6 +63,7 @@ class AddTravelActivity : AppCompatActivity() {
                 (passengersEditText.text.toString().toInt() + 1).toString()
             )
         }
+        showDialog()
     }
 
     fun pickDate(textV: TextView) {
@@ -87,9 +89,10 @@ class AddTravelActivity : AppCompatActivity() {
     }
     fun showDialog(){
         val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.DECOR_CAPTION_SHADE_AUTO)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.date_picker)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setTitle("Address")
+        dialog.setCancelable(true)
+        dialog.setContentView(R.layout.address_form)
        // val body = dialog.findViewById(R.id.body) as TextView
        // body.text = title
        // val yesBtn = dialog.findViewById(R.id.yesBtn) as Button
