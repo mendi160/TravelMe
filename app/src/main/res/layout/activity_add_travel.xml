@@ -59,10 +59,11 @@
         android:orientation="horizontal">
         <Button
             android:id="@+id/minusP"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Less"
             android:onClick="less"
+            android:layout_width="50dp"
+            app:icon="@drawable/baseline_remove_black_18dp"
+            style="@style/Widget.MaterialComponents.Button.Icon"
             />
         <EditText
             android:id="@+id/passengers"
@@ -73,7 +74,7 @@
             android:inputType="number"/>
         <Button
             android:id="@+id/plusP"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
 
             android:onClick="more"

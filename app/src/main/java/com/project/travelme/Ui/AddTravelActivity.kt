@@ -10,29 +10,33 @@ import com.project.travelme.R
 import com.project.travelme.R.id.passengers
 
 class AddTravelActivity : AppCompatActivity() {
+    private lateinit var passengersEditText:EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_travel)
         Toast.makeText(this, "hi", Toast.LENGTH_LONG).show()
-        val passengersEditText: EditText = findViewById<EditText>(passengers) as EditText
+       passengersEditText = findViewById<EditText>(passengers)
         passengersEditText.addTextChangedListener {
             val text = passengersEditText.text.toString()
             if (text == "" || text.toInt() < 0)
                 passengersEditText.setText("0")
         }
     }
-
     fun less(view: View) {
-        findViewById<EditText>(passengers).setText(
-            (findViewById<EditText>(passengers).text.toString().toInt() - 1).toString()
+        setEmptyEditTextToZero()
+        passengersEditText.setText(
+            (passengersEditText.text.toString().toInt() - 1).toString()
         )
     }
 
     fun more(view: View) {
-        if (findViewById<EditText>(passengers).text.toString() == "")
-            findViewById<EditText>(passengers).setText("0")
-        findViewById<EditText>(passengers).setText(
-            (findViewById<EditText>(passengers).text.toString().toInt() + 1).toString()
+        setEmptyEditTextToZero()
+        passengersEditText.setText(
+            (passengersEditText.text.toString().toInt() + 1).toString()
         )
+    }
+    private fun setEmptyEditTextToZero(){
+        if (passengersEditText.text.toString() == "")
+            passengersEditText.setText("0")
     }
 }
