@@ -1,11 +1,14 @@
 package com.project.travelme.Ui
 
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
 import java.time.LocalDate
@@ -51,6 +54,7 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     fun more(view: View) {
+        showDialog()
         if (passengersEditText.text.toString() == "")
             passengersEditText.setText("1")
         else {
@@ -61,6 +65,9 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     fun pickDate(textV: TextView) {
+
+
+
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH).toInt()
@@ -77,6 +84,21 @@ class AddTravelActivity : AppCompatActivity() {
         )
         dpd.datePicker.minDate=System.currentTimeMillis()-1000
         dpd.show()
+    }
+    fun showDialog(){
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.DECOR_CAPTION_SHADE_AUTO)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.date_picker)
+       // val body = dialog.findViewById(R.id.body) as TextView
+       // body.text = title
+       // val yesBtn = dialog.findViewById(R.id.yesBtn) as Button
+       // val noBtn = dialog.findViewById(R.id.noBtn) as TextView
+       // yesBtn.setOnClickListener {
+       //     dialog.dismiss()
+      //  }
+       // noBtn.setOnClickListener { dialog.dismiss() }
+        dialog.show()
     }
 }
 
