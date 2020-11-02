@@ -8,15 +8,20 @@
     android:orientation="vertical"
     tools:context=".Address">
 
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="City"/>
-    <Spinner
-        android:id="@+id/sCities"
+    <TextView
+        android:id="@+id/banan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Set your Adress here"/>
+        android:text="City" />
+
+    <Spinner
+
+        android:id="@+id/sCities"
+        android:layout_width="284dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:textDirection="firstStrongRtl" />
 
 
 

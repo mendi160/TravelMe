@@ -1,7 +1,9 @@
 package com.project.travelme
 
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.project.travelme.Ui.AddTravelActivity
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(this@MainActivity, AddTravelActivity::class.java)
             startActivity(i)
         }
+
     }
 }
 

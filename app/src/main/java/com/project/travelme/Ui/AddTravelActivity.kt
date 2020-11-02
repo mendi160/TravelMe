@@ -1,5 +1,6 @@
 package com.project.travelme.Ui
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
@@ -20,7 +21,7 @@ class AddTravelActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_travel)
-        Toast.makeText(this, "hi", Toast.LENGTH_LONG).show()
+
         etPassengers = findViewById<EditText>(passengers)
         etPassengers.addTextChangedListener {
             val text = etPassengers.text.toString()
@@ -46,6 +47,8 @@ class AddTravelActivity : AppCompatActivity() {
                 .setOnClickListener {
                     showDialog()
                 }
+
+
     }
 
     fun less(view: View) {
@@ -87,18 +90,7 @@ class AddTravelActivity : AppCompatActivity() {
 
     fun showDialog() {
 
-        val spinner: Spinner = findViewById(R.id.sCities)
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
-          this,
-            R.array.cities_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinner.adapter = adapter
-        }
+
 
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -113,6 +105,23 @@ class AddTravelActivity : AppCompatActivity() {
         //     dialog.dismiss()
         //  }
         // noBtn.setOnClickListener { dialog.dismiss() }
+
+        val spinner  = dialog.findViewById<Spinner>(R.id.sCities)
+
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.cities_array,
+            android.R.layout.simple_spinner_item)
+
+            .also { adapter ->
+                //  Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                //  Apply the adapter to the spinner
+                spinner.adapter = adapter
+            }
+        spinner.textAlignment=View.TEXT_ALIGNMENT_CENTER
+
         dialog.show()
     }
 }
