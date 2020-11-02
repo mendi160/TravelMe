@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:text="City" />
 
-    <Spinner
+    <AutoCompleteTextView
 
-        android:id="@+id/sCities"
+        android:id="@+id/actvCities"
         android:layout_width="284dp"
         android:layout_height="wrap_content"
         android:spinnerMode="dialog"

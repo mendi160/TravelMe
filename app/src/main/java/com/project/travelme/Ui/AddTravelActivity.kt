@@ -1,23 +1,23 @@
 package com.project.travelme.Ui
 
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.service.voice.VoiceInteractionSession
 import android.view.View
 import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.dialog.MaterialDialogs
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
-import com.project.travelme.Utils.Address
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddTravelActivity : AppCompatActivity() {
     private lateinit var etPassengers: EditText
+    private lateinit var bDeparture: Button
+    private lateinit var bReturn: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_travel)
@@ -28,20 +28,27 @@ class AddTravelActivity : AppCompatActivity() {
             if (text != "" && text.toInt() < 0)
                 etPassengers.setText("0")
         }
-        var bDeparture =
+        //initialize buttons for pick date
+        bDeparture =
             findViewById<LinearLayout>(R.id.departureDate).findViewById<Button>(R.id.pickDateBtn)
-                .setOnClickListener {
-                    pickDate(findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView))
-                }
-        var bReturn =
-            findViewById<LinearLayout>(R.id.returnDate).findViewById<Button>(R.id.pickDateBtn)
-                .setOnClickListener {
-                    pickDate(
-                        findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(
-                            R.id.dateTextView
-                        )
-                    )
-                }
+        bReturn = findViewById<LinearLayout>(R.id.returnDate).findViewById<Button>(R.id.pickDateBtn)
+        bReturn.isEnabled = false
+
+        bDeparture.setOnClickListener {
+            pickDate(findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView))
+
+        }
+        bDeparture.text = "Depart Date"
+
+
+        bReturn.setOnClickListener {
+            pickDate(
+                findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(
+                    R.id.dateTextView
+                )
+            )
+        }
+        bReturn.text = "Return Date"
         var bSourceAdderss =
             findViewById<Button>(R.id.bSourceAddress)
                 .setOnClickListener {
@@ -51,7 +58,7 @@ class AddTravelActivity : AppCompatActivity() {
 
     }
 
-    fun less(view: View) {
+    fun removePassenger(view: View) {
         if (etPassengers.text.toString() == "")
             return
         etPassengers.setText(
@@ -59,7 +66,7 @@ class AddTravelActivity : AppCompatActivity() {
         )
     }
 
-    fun more(view: View) {
+    fun addPassenger(view: View) {
         if (etPassengers.text.toString() == "")
             etPassengers.setText("1")
         else {
@@ -78,50 +85,59 @@ class AddTravelActivity : AppCompatActivity() {
             this,
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
-                textV.text = "" + dayOfMonth + " " + (monthOfYear.toInt() + 1) + ", " + year
+                textV.text = "" + dayOfMonth + "," + (monthOfYear.toInt() + 1) + "," + year
+                bReturn.isEnabled = true
             },
             year,
             month,
             day
         )
-        dpd.datePicker.minDate = System.currentTimeMillis() - 1000
+        dpd.datePicker.minDate
+        val departureTextView: TextView =
+            findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView)
+        val returnTextView: TextView =
+            findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(R.id.dateTextView)
+        var departureDate = departureTextView.text.toString()
+        val returnDate = returnTextView.text.toString()
+        if (departureTextView == textV)
+            if (returnDate == "")
+                dpd.datePicker.minDate = System.currentTimeMillis() - 1000
+            else {
+                if (SimpleDateFormat("dd,MM,yyyy").parse(returnDate).time - SimpleDateFormat("dd,MM,yyyy").parse(
+                        departureDate
+                    ).time < 0
+                ) {
+                    returnTextView.text = departureTextView.text.toString()
+                } else
+                    departureDate=departureDate
+            }
+        else
+            dpd.datePicker.minDate = SimpleDateFormat("dd,MM,yyyy").parse(departureDate).time
+
+
+//                    SimpleDateFormat("dd,MM,yyyy").parse(str).time
+
+
         dpd.show()
     }
 
     fun showDialog() {
-
-
-
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setTitle("Address")
         dialog.setCancelable(true)
         dialog.setContentView(R.layout.address_form)
-        // val body = dialog.findViewById(R.id.body) as TextView
-        // body.text = title
-        // val yesBtn = dialog.findViewById(R.id.yesBtn) as Button
-        // val noBtn = dialog.findViewById(R.id.noBtn) as TextView
-        // yesBtn.setOnClickListener {
-        //     dialog.dismiss()
-        //  }
-        // noBtn.setOnClickListener { dialog.dismiss() }
-
-        val spinner  = dialog.findViewById<Spinner>(R.id.sCities)
-
 // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
+        val autoTextView = dialog.findViewById<AutoCompleteTextView>(R.id.actvCities)
+        // Get the array of languages
+        val cities = resources.getStringArray(R.array.cities_array)
+        // Create adapter and add in AutoCompleteTextView
+        val adapter = ArrayAdapter(
             this,
-            R.array.cities_array,
-            android.R.layout.simple_spinner_item)
-
-            .also { adapter ->
-                //  Specify the layout to use when the list of choices appears
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                //  Apply the adapter to the spinner
-                spinner.adapter = adapter
-            }
-        spinner.textAlignment=View.TEXT_ALIGNMENT_CENTER
-
+            android.R.layout.simple_list_item_1, cities
+        )
+        autoTextView.setAdapter(adapter)
+        autoTextView.threshold = 1
         dialog.show()
     }
 }
