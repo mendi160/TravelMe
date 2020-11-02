@@ -8,34 +8,31 @@ import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
-import java.time.LocalDate
-import java.time.LocalTime
 import java.util.*
 
 class AddTravelActivity : AppCompatActivity() {
-    private lateinit var passengersEditText: EditText
+    private lateinit var etPassengers: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_add_travel)
         Toast.makeText(this, "hi", Toast.LENGTH_LONG).show()
-        passengersEditText = findViewById<EditText>(passengers)
-        passengersEditText.addTextChangedListener {
-            val text = passengersEditText.text.toString()
+        etPassengers = findViewById<EditText>(passengers)
+        etPassengers.addTextChangedListener {
+            val text = etPassengers.text.toString()
             if (text != "" && text.toInt() < 0)
-                passengersEditText.setText("0")
+                etPassengers.setText("0")
         }
-        var departBtn =
+        var bDeparture =
             findViewById<LinearLayout>(R.id.departureDate).findViewById<Button>(R.id.pickDateBtn)
                 .setOnClickListener {
                     pickDate(findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView))
 
 
                 }
-        var returnBtn =
+        var bReturn =
             findViewById<LinearLayout>(R.id.returnDate).findViewById<Button>(R.id.pickDateBtn)
                 .setOnClickListener {
                     pickDate(
@@ -47,20 +44,20 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     fun less(view: View) {
-        if (passengersEditText.text.toString() == "")
+        if (etPassengers.text.toString() == "")
             return
-        passengersEditText.setText(
-            (passengersEditText.text.toString().toInt() - 1).toString()
+        etPassengers.setText(
+            (etPassengers.text.toString().toInt() - 1).toString()
         )
     }
 
     fun more(view: View) {
 
-        if (passengersEditText.text.toString() == "")
-            passengersEditText.setText("1")
+        if (etPassengers.text.toString() == "")
+            etPassengers.setText("1")
         else {
-            passengersEditText.setText(
-                (passengersEditText.text.toString().toInt() + 1).toString()
+            etPassengers.setText(
+                (etPassengers.text.toString().toInt() + 1).toString()
             )
         }
         showDialog()
