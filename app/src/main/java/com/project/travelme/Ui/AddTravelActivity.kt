@@ -3,6 +3,7 @@ package com.project.travelme.Ui
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.service.voice.VoiceInteractionSession
 import android.view.View
 import android.view.Window
 import android.widget.*
@@ -11,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import com.google.android.material.dialog.MaterialDialogs
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
+import com.project.travelme.Utils.Address
 import java.util.*
 
 class AddTravelActivity : AppCompatActivity() {
@@ -39,6 +41,11 @@ class AddTravelActivity : AppCompatActivity() {
                         )
                     )
                 }
+        var bSourceAdderss =
+            findViewById<Button>(R.id.bSourceAddress)
+                .setOnClickListener {
+                    showDialog()
+                }
     }
 
     fun less(view: View) {
@@ -57,7 +64,6 @@ class AddTravelActivity : AppCompatActivity() {
                 (etPassengers.text.toString().toInt() + 1).toString()
             )
         }
-        showDialog()
     }
 
     fun pickDate(textV: TextView) {
@@ -80,6 +86,20 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     fun showDialog() {
+
+        val spinner: Spinner = findViewById(R.id.sCities)
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+          this,
+            R.array.cities_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
+
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setTitle("Address")

@@ -31,19 +31,20 @@
         android:hint="@string/your_email"
         android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/sourceAddress"
+    <Button
+        android:id="@+id/bSourceAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
         android:layout_marginTop="10dp"
-        android:hint="@string/your_source_address" />
+        android:hint="@string/your_source_address"
+        />
 
     <EditText
         android:id="@+id/destinationAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sourceAddress"
+        android:layout_below="@+id/bSourceAddress"
         android:hint="@string/your_destination_address" />
 
     <View
