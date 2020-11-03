@@ -81,36 +81,34 @@ class AddTravelActivity : AppCompatActivity() {
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH).toInt()
         val day = c.get(Calendar.DAY_OF_MONTH)
-        val dpd = DatePickerDialog(
-            this,
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                // Display Selected date in textbox
-                textV.text = "" + dayOfMonth + "," + (monthOfYear.toInt() + 1) + "," + year
-                bReturn.isEnabled = true
-            },
-            year,
-            month,
-            day
-        )
-        dpd.datePicker.minDate
         val departureTextView: TextView =
             findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView)
         val returnTextView: TextView =
             findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(R.id.dateTextView)
         var departureDate = departureTextView.text.toString()
         val returnDate = returnTextView.text.toString()
-        if (departureTextView == textV)
-            if (returnDate == "")
-                dpd.datePicker.minDate = System.currentTimeMillis() - 1000
-            else {
-                if (SimpleDateFormat("dd,MM,yyyy").parse(returnDate).time - SimpleDateFormat("dd,MM,yyyy").parse(
-                        departureDate
+        val dpd = DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                // Display Selected date in textbox
+
+                textV.text = "" + dayOfMonth + "," + (monthOfYear.toInt() + 1) + "," + year
+                bReturn.isEnabled = true
+                if (returnDate != "" && SimpleDateFormat("dd,MM,yyyy").parse(returnDate).time - SimpleDateFormat(
+                        "dd,MM,yyyy"
+                    ).parse(
+                        textV.text.toString()
                     ).time < 0
-                ) {
+                )
                     returnTextView.text = departureTextView.text.toString()
-                } else
-                    departureDate=departureDate
-            }
+
+            },
+            year,
+            month,
+            day
+        )
+        if (departureTextView == textV)
+            dpd.datePicker.minDate = System.currentTimeMillis() - 1000
         else
             dpd.datePicker.minDate = SimpleDateFormat("dd,MM,yyyy").parse(departureDate).time
 
