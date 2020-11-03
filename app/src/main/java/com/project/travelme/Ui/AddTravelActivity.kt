@@ -40,8 +40,6 @@ class AddTravelActivity : AppCompatActivity() {
 
         }
         bDeparture.text = "Depart Date"
-
-
         bReturn.setOnClickListener {
             pickDate(
                 findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(

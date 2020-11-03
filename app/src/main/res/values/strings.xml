@@ -2,8 +2,8 @@
     <string name="app_name">TravelMe</string>
     <string name="AddTrvlBtn">הוסף בקשה</string>
     <string name="your_name">Your name</string>
-    <string name="your_phone_number">Your phone number</string>
-    <string name="your_email">Your email</string>
+    <string name="yourPhoneNumber">Your phone number </string>
+    <string name="your_email">Your Email</string>
     <string name="your_address">Your address</string>
     <string name="your_source_address">source address</string>
     <string name="your_destination_address">your destination address</string>

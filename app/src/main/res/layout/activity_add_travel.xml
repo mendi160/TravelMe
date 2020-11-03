@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
-        android:hint="@string/your_phone_number"
+        android:hint="@string/yourPhoneNumber"
         android:inputType="phone" />
 
     <EditText
@@ -73,6 +73,7 @@
             android:id="@+id/passengers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:hint="number of passengers"
             android:inputType="number" />
 
