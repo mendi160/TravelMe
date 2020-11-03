@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
+import com.project.travelme.Utils.Util
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,6 +18,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var etPassengers: EditText
     private lateinit var bDeparture: Button
     private lateinit var bReturn: Button
+    private lateinit var bSourceAddress: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,6 @@ class AddTravelActivity : AppCompatActivity() {
             findViewById<LinearLayout>(R.id.departureDate).findViewById<Button>(R.id.pickDateBtn)
         bReturn = findViewById<LinearLayout>(R.id.returnDate).findViewById<Button>(R.id.pickDateBtn)
         bReturn.isEnabled = false
-
         bDeparture.setOnClickListener {
             pickDate(findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView))
 
@@ -49,13 +50,8 @@ class AddTravelActivity : AppCompatActivity() {
             )
         }
         bReturn.text = "Return Date"
-        var bSourceAdderss =
-            findViewById<Button>(R.id.bSourceAddress)
-                .setOnClickListener {
-                    showDialog()
-                }
-
-
+        bSourceAddress = findViewById<Button>(R.id.bSourceAddress)
+        bSourceAddress.setOnClickListener { showDialog() }
     }
 
     fun removePassenger(view: View) {
@@ -91,17 +87,10 @@ class AddTravelActivity : AppCompatActivity() {
             this,
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
-
                 textV.text = "" + dayOfMonth + "," + (monthOfYear.toInt() + 1) + "," + year
                 bReturn.isEnabled = true
-                if (returnDate != "" && SimpleDateFormat("dd,MM,yyyy").parse(returnDate).time - SimpleDateFormat(
-                        "dd,MM,yyyy"
-                    ).parse(
-                        textV.text.toString()
-                    ).time < 0
-                )
+                if (Util.compareStringsOfDate(textV.text.toString(), returnDate))
                     returnTextView.text = departureTextView.text.toString()
-
             },
             year,
             month,
@@ -111,11 +100,6 @@ class AddTravelActivity : AppCompatActivity() {
             dpd.datePicker.minDate = System.currentTimeMillis() - 1000
         else
             dpd.datePicker.minDate = SimpleDateFormat("dd,MM,yyyy").parse(departureDate).time
-
-
-//                    SimpleDateFormat("dd,MM,yyyy").parse(str).time
-
-
         dpd.show()
     }
 

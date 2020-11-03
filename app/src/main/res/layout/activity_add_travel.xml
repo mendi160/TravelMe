@@ -33,7 +33,7 @@
 
     <Button
         android:id="@+id/bSourceAddress"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
         android:layout_marginTop="10dp"
@@ -42,7 +42,7 @@
 
     <EditText
         android:id="@+id/destinationAddress"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bSourceAddress"
         android:hint="@string/your_destination_address" />
@@ -71,7 +71,6 @@
 
         <EditText
             android:id="@+id/passengers"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="number of passengers"

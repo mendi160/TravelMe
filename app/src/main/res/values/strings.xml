@@ -8,6 +8,7 @@
     <string name="your_source_address">source address</string>
     <string name="your_destination_address">your destination address</string>
     <string name="pick_date">Pick Date</string>
+    <string name="tvCity">City</string>
 
     <string-array name="cities_array" >
         <item>אבטליון</item>
