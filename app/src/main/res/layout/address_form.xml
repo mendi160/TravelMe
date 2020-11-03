@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/addressForm"
     android:layout_width="300dp"
-    android:layout_height="500dp"
+    android:layout_height="300dp"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".Address">
+   >
 
     <TextView
         android:id="@+id/tvCity"
@@ -21,4 +22,39 @@
         android:spinnerMode="dialog"
         android:textAlignment="center"
         android:textDirection="firstStrongRtl" />
+
+    <TextView
+        android:id="@+id/tvStreet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvStreet" />
+
+    <EditText
+        android:id="@+id/etStreet"
+        android:layout_width="284dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress" />
+
+    <TextView
+        android:id="@+id/tvNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvHouseNumber" />
+
+    <EditText
+        android:id="@+id/etNumber"
+        android:layout_width="284dp"
+        android:layout_height="wrap_content"
+        android:inputType="number" />
+
+    <Button
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:onClick="saveAddress"
+        android:text="Save"
+        app:icon="@drawable/baseline_save_alt_black_18dp" />
+
 </LinearLayout>

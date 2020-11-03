@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
+import com.project.travelme.Utils.Address
 import com.project.travelme.Utils.Util
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,6 +20,11 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDeparture: Button
     private lateinit var bReturn: Button
     private lateinit var bSourceAddress: Button
+    private lateinit var bDestination: Button
+    private lateinit var dialog :Dialog
+    private lateinit var sourceAddress: Address
+    private lateinit var destinationAddresses: MutableList<Address>
+    private var isSourceAddress: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +55,16 @@ class AddTravelActivity : AppCompatActivity() {
         }
         bReturn.text = "Return Date"
         bSourceAddress = findViewById<Button>(R.id.bSourceAddress)
-        bSourceAddress.setOnClickListener { showDialog() }
+        bSourceAddress.setOnClickListener {
+            showDialog()
+            isSourceAddress = true
+        }
+        bDestination = findViewById<Button>(R.id.bDestinationAddress)
+        bDestination.setOnClickListener {
+            showDialog()
+            isSourceAddress = false
+        }
+        destinationAddresses= mutableListOf()
     }
 
     fun removePassenger(view: View) {
@@ -101,8 +116,8 @@ class AddTravelActivity : AppCompatActivity() {
         dpd.show()
     }
 
-    fun showDialog() {
-        val dialog = Dialog(this)
+    private fun showDialog() {
+        dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setTitle("Address")
         dialog.setCancelable(true)
@@ -119,6 +134,21 @@ class AddTravelActivity : AppCompatActivity() {
         autoTextView.setAdapter(adapter)
         autoTextView.threshold = 1
         dialog.show()
+    }
+
+    fun saveAddress(view: View) {
+        val city =
+            (view.parent as LinearLayout).findViewById<EditText>(R.id.actvCities).text.toString()
+        val street =
+            (view.parent as LinearLayout).findViewById<EditText>(R.id.etStreet).text.toString()
+        val number =
+            (view.parent as LinearLayout).findViewById<EditText>(R.id.etNumber).text.toString()
+        if (isSourceAddress)
+            sourceAddress = Address(city, street, number.toInt())
+        else
+            destinationAddresses.add(Address(city,street,number.toInt()))
+        dialog.cancel()
+        Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show()
     }
 }
 

@@ -5,10 +5,12 @@
     <string name="yourPhoneNumber">Your phone number </string>
     <string name="your_email">Your Email</string>
     <string name="your_address">Your address</string>
-    <string name="your_source_address">source address</string>
-    <string name="your_destination_address">your destination address</string>
+    <string name="bSourceAddress">source address</string>
+    <string name="bDestinationAddress">Destination</string>
     <string name="pick_date">Pick Date</string>
     <string name="tvCity">City</string>
+    <string name="tvStreet">Street</string>
+    <string name="tvHouseNumber">House number</string>
 
     <string-array name="cities_array" >
         <item>אבטליון</item>

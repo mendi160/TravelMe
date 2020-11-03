@@ -37,15 +37,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
         android:layout_marginTop="10dp"
-        android:hint="@string/your_source_address"
+        android:text="@string/bSourceAddress"
         />
 
-    <EditText
-        android:id="@+id/destinationAddress"
+    <Button
+        android:id="@+id/bDestinationAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bSourceAddress"
-        android:hint="@string/your_destination_address" />
+        android:text="@string/bDestinationAddress" />
 
     <View
         android:id="@+id/divider"
@@ -58,7 +58,7 @@
         android:id="@+id/addPassengers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/destinationAddress"
+        android:layout_below="@id/bDestinationAddress"
         android:orientation="horizontal">
 
         <Button
@@ -100,5 +100,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/departureDate"
         />
+    <Button
+        android:id="@+id/bSave"
+        android:layout_below="@id/returnDate"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/baseline_save_black_24dp"/>
 
 </RelativeLayout>
