@@ -21,6 +21,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bReturn: Button
     private lateinit var bSourceAddress: Button
     private lateinit var bDestination: Button
+    private lateinit var bSave: Button
     private lateinit var dialog :Dialog
     private lateinit var sourceAddress: Address
     private lateinit var destinationAddresses: MutableList<Address>
@@ -64,6 +65,8 @@ class AddTravelActivity : AppCompatActivity() {
             showDialog()
             isSourceAddress = false
         }
+        bSave = findViewById<Button>(R.id.bSave)
+       //TODO bSave.setOnClickListener { }
         destinationAddresses= mutableListOf()
     }
 

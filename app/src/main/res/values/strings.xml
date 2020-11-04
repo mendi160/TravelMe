@@ -11,6 +11,7 @@
     <string name="tvCity">City</string>
     <string name="tvStreet">Street</string>
     <string name="tvHouseNumber">House number</string>
+    <string name="bSave">Save</string>
 
     <string-array name="cities_array" >
         <item>אבטליון</item>

@@ -54,7 +54,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:onClick="saveAddress"
-        android:text="Save"
+        android:text="@string/bSave"
         app:icon="@drawable/baseline_save_alt_black_18dp" />
 
 </LinearLayout>
