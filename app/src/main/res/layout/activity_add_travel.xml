@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         app:endIconMode="clear_text"
      android:hint="@string/your_name"
-    android:inputType="textPersonName" >
+   >
         <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPersonName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -26,10 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         android:hint="@string/yourPhoneNumber"
-        android:inputType="phone" >
+        >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:inputType="phone"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -40,9 +42,10 @@
         android:layout_below="@id/phoneNumber"
         android:ems="10"
         android:hint="@string/your_email"
-        android:inputType="textEmailAddress" >
+        >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:inputType="textEmailAddress"
             android:layout_height="match_parent"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,6 +54,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
+        android:layout_alignStart="@id/bDestinationAddress"
+        android:layout_alignEnd="@id/bDestinationAddress"
         android:layout_marginTop="10dp"
         android:text="@string/bSourceAddress" />
 
@@ -97,6 +102,9 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:onClick="addPassenger"
+            android:longClickable="true"
+
+
             app:icon="@drawable/baseline_add_24" />
     </LinearLayout>
 

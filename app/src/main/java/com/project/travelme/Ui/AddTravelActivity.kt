@@ -2,6 +2,7 @@ package com.project.travelme.Ui
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -62,7 +63,8 @@ class AddTravelActivity : AppCompatActivity() {
         }
         bDestination = findViewById<Button>(R.id.bDestinationAddress)
         bDestination.setOnClickListener {
-            showDialog()
+            //showDialog()
+
             isSourceAddress = false
         }
         bSave = findViewById<Button>(R.id.bSave)

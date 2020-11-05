@@ -6,14 +6,14 @@
     <string name="your_email">Your Email</string>
     <string name="your_address">Your address</string>
     <string name="bSourceAddress">source address</string>
-    <string name="bDestinationAddress">Destination</string>
+    <string name="bDestinationAddress">Destination address</string>
     <string name="pick_date">Pick Date</string>
     <string name="tvCity">City</string>
     <string name="tvStreet">Street</string>
     <string name="tvHouseNumber">House number</string>
     <string name="bSave">Save</string>
 
-    <string-array name="cities_array" >
+    <string-array name="cities_array">
         <item>אבטליון</item>
         <item>אביאל</item>
         <item>אביבים</item>
@@ -1272,6 +1272,15 @@
         <item>תקוע</item>
         <item>תרום</item>
     </string-array>
+    <string name="title_activity_destinations_activity">destinations_activity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
 </resources>
