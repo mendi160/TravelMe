@@ -7,29 +7,44 @@
     android:padding="10dp"
     tools:context=".Ui.AddTravelActivity">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/your_name"
-        android:inputType="textPersonName" />
+        app:endIconMode="clear_text"
+     android:hint="@string/your_name"
+    android:inputType="textPersonName" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         android:hint="@string/yourPhoneNumber"
-        android:inputType="phone" />
+        android:inputType="phone" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-    <EditText
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/phoneNumber"
         android:ems="10"
         android:hint="@string/your_email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/bSourceAddress"
@@ -37,8 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
         android:layout_marginTop="10dp"
-        android:text="@string/bSourceAddress"
-        />
+        android:text="@string/bSourceAddress" />
 
     <Button
         android:id="@+id/bDestinationAddress"
@@ -98,8 +112,8 @@
         layout="@layout/date_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/departureDate"
-        />
+        android:layout_below="@id/departureDate" />
+
     <Button
         android:id="@+id/bSave"
         android:layout_below="@id/returnDate"
@@ -109,6 +123,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bSave"
-        app:icon="@drawable/baseline_save_alt_black_18dp"/>
+        app:icon="@drawable/baseline_save_alt_black_18dp" />
 
 </RelativeLayout>
