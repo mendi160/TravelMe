@@ -9,6 +9,7 @@ import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.project.travelme.DestinationAddressActivity
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
 import com.project.travelme.Utils.Address
@@ -81,6 +82,7 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     fun addPassenger(view: View) {
+        startActivity(Intent(this,DestinationAddressActivity::class.java))
         if (etPassengers.text.toString() == "")
             etPassengers.setText("1")
         else {
