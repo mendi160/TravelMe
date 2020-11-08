@@ -12,7 +12,7 @@
         <activity
             android:name=".DestinationAddressActivity"
            android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity android:name=".Address"
+        <activity android:name=".AddressDialog"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
         <activity android:name=".Ui.AddTravelActivity" />
         <activity android:name=".MainActivity">

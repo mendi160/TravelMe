@@ -9,6 +9,7 @@ import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.project.travelme.AddressDialog
 import com.project.travelme.DestinationAddressActivity
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
@@ -59,7 +60,9 @@ class AddTravelActivity : AppCompatActivity() {
         bReturn.text = "Return Date"
         bSourceAddress = findViewById<Button>(R.id.bSourceAddress)
         bSourceAddress.setOnClickListener {
-            showDialog(it)
+            //showDialog(it)
+            startActivity(Intent(this, AddressDialog::class.java))
+
             isSourceAddress = true
         }
         bDestination = findViewById<Button>(R.id.bDestinationAddress)

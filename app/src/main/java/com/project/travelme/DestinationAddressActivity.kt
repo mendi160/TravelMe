@@ -3,11 +3,7 @@ package com.project.travelme
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.ListView
 
 class DestinationAddressActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +13,7 @@ class DestinationAddressActivity : AppCompatActivity() {
     }
 
     fun showaddadreesdialog(view: View) {
-        startActivity(Intent(this, Address::class.java))
+        startActivity(Intent(this, AddressDialog::class.java))
        // var bSave= findViewById<Button>(R.id.bSave).setOnClickListener { Log.i("aaa","aaa") }
 
 
