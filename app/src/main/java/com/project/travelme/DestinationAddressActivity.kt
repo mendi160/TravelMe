@@ -1,9 +1,9 @@
 package com.project.travelme
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 
 class DestinationAddressActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,10 +12,7 @@ class DestinationAddressActivity : AppCompatActivity() {
         this.setFinishOnTouchOutside(false)
     }
 
-    fun showaddadreesdialog(view: View) {
+    fun showAddAddressDialog(view: View) {
         startActivity(Intent(this, AddressDialog::class.java))
-       // var bSave= findViewById<Button>(R.id.bSave).setOnClickListener { Log.i("aaa","aaa") }
-
-
     }
 }

@@ -42,9 +42,10 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:clickable="true"
-            android:onClick="showaddadreesdialog"
+            android:onClick="showAddAddressDialog"
             app:srcCompat="@drawable/baseline_add_24"
-            tools:ignore="OnClick,VectorDrawableCompat" />
+            tools:ignore="OnClick,RtlHardcoded,VectorDrawableCompat"
+            android:focusable="true" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -7,6 +7,7 @@
     android:layout_height="300dp"
     android:layout_gravity="center"
     android:orientation="vertical"
+    tools:context=".AddressDialog"
    >
 
     <TextView
@@ -48,12 +49,11 @@
         android:inputType="number" />
 
     <Button
-
+        android:id="@+id/bSaveAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:onClick="saveAddress"
         android:text="@string/bSave"
         />
 

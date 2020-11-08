@@ -13,10 +13,10 @@ import com.project.travelme.AddressDialog
 import com.project.travelme.DestinationAddressActivity
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
-import com.project.travelme.Utils.Address
 import com.project.travelme.Utils.Util
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 class AddTravelActivity : AppCompatActivity() {
     private lateinit var etPassengers: EditText
@@ -26,9 +26,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
-    private lateinit var sourceAddress: Address
-    private lateinit var destinationAddresses: MutableList<Address>
-    private var isSourceAddress: Boolean = false
+    private var isSourceAddress by Delegates.notNull<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,19 +59,20 @@ class AddTravelActivity : AppCompatActivity() {
         bSourceAddress = findViewById<Button>(R.id.bSourceAddress)
         bSourceAddress.setOnClickListener {
             //showDialog(it)
-            startActivity(Intent(this, AddressDialog::class.java))
-
             isSourceAddress = true
+            startActivity(Intent(this, AddressDialog::class.java).putExtra("bool", isSourceAddress))
+
+
         }
         bDestination = findViewById<Button>(R.id.bDestinationAddress)
         bDestination.setOnClickListener {
-            startActivity(Intent(this, DestinationAddressActivity::class.java))
-//its for calender
             isSourceAddress = false
+            startActivity(
+                Intent(this, DestinationAddressActivity::class.java)
+            )
         }
         bSave = findViewById<Button>(R.id.bSave)
         //TODO bSave.setOnClickListener { }
-        destinationAddresses = mutableListOf()
     }
 
     fun removePassenger(view: View) {
@@ -144,21 +143,6 @@ class AddTravelActivity : AppCompatActivity() {
         autoTextView.setAdapter(adapter)
         autoTextView.threshold = 1
         dialog.show()
-    }
-
-    fun saveAddress(view: View) {
-        val city =
-            (view.parent as LinearLayout).findViewById<EditText>(R.id.actvCities).text.toString()
-        val street =
-            (view.parent as LinearLayout).findViewById<EditText>(R.id.etStreet).text.toString()
-        val number =
-            (view.parent as LinearLayout).findViewById<EditText>(R.id.etNumber).text.toString()
-        if (isSourceAddress)
-            sourceAddress = Address(city, street, number.toInt())
-        else
-            destinationAddresses.add(Address(city, street, number.toInt()))
-        dialog.cancel()
-        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
     }
 }
 
