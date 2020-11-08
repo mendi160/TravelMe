@@ -11,8 +11,9 @@
         android:theme="@style/Theme.TravelMe">
         <activity
             android:name=".DestinationAddressActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".Address" />
+           android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity android:name=".Address"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
         <activity android:name=".Ui.AddTravelActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

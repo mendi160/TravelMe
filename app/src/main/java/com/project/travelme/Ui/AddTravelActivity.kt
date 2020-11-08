@@ -24,7 +24,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bSourceAddress: Button
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
-    private lateinit var dialog :Dialog
+    private lateinit var dialog: Dialog
     private lateinit var sourceAddress: Address
     private lateinit var destinationAddresses: MutableList<Address>
     private var isSourceAddress: Boolean = false
@@ -32,7 +32,7 @@ class AddTravelActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_travel)
-
+        this.setFinishOnTouchOutside(false)
         etPassengers = findViewById<EditText>(passengers)
         etPassengers.addTextChangedListener {
             val text = etPassengers.text.toString()
@@ -59,18 +59,18 @@ class AddTravelActivity : AppCompatActivity() {
         bReturn.text = "Return Date"
         bSourceAddress = findViewById<Button>(R.id.bSourceAddress)
         bSourceAddress.setOnClickListener {
-            showDialog()
+            showDialog(it)
             isSourceAddress = true
         }
         bDestination = findViewById<Button>(R.id.bDestinationAddress)
         bDestination.setOnClickListener {
-            //showDialog()
-
+            startActivity(Intent(this, DestinationAddressActivity::class.java))
+//its for calender
             isSourceAddress = false
         }
         bSave = findViewById<Button>(R.id.bSave)
-       //TODO bSave.setOnClickListener { }
-        destinationAddresses= mutableListOf()
+        //TODO bSave.setOnClickListener { }
+        destinationAddresses = mutableListOf()
     }
 
     fun removePassenger(view: View) {
@@ -82,7 +82,7 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     fun addPassenger(view: View) {
-        startActivity(Intent(this,DestinationAddressActivity::class.java))
+
         if (etPassengers.text.toString() == "")
             etPassengers.setText("1")
         else {
@@ -123,8 +123,8 @@ class AddTravelActivity : AppCompatActivity() {
         dpd.show()
     }
 
-    private fun showDialog() {
-        dialog = Dialog(this)
+    fun showDialog(view: View) {
+        dialog = Dialog(view.context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setTitle("Address")
         dialog.setCancelable(true)
@@ -153,9 +153,9 @@ class AddTravelActivity : AppCompatActivity() {
         if (isSourceAddress)
             sourceAddress = Address(city, street, number.toInt())
         else
-            destinationAddresses.add(Address(city,street,number.toInt()))
+            destinationAddresses.add(Address(city, street, number.toInt()))
         dialog.cancel()
-        Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
     }
 }
 
