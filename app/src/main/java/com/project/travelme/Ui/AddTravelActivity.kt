@@ -3,6 +3,7 @@ package com.project.travelme.Ui
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.project.travelme.AddressDialog
 import com.project.travelme.DestinationAddressActivity
 import com.project.travelme.R
@@ -26,7 +29,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDeparture: Button
     private lateinit var bReturn: Button
     private lateinit var bSourceAddress: Button
-    private lateinit var etEmail: EditText
+    private lateinit var etEmail: TextInputEditText
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
@@ -78,14 +81,20 @@ class AddTravelActivity : AppCompatActivity() {
             )
         }
         bSave = findViewById<Button>(R.id.bSave)
-        etEmail = findViewById<EditText>(R.id.etEmail)
-//            etEmail.doOnTextChanged { text, start, before, count ->
-//            if (Util.isValidEmail(text.toString()))
-//                etEmail.setBackgroundColor(Color.GREEN)
-//             else
-//                etEmail.setBackgroundColor(Color.RED)
+        etEmail = findViewById<TextInputEditText>(R.id.tietEmail)
+        etEmail.doOnTextChanged { text, start, before, count ->
+            var d = findViewById<TextInputLayout>(R.id.tilEmail)
 
+            if (!Util.isValidEmail(text.toString())) {
+                d.boxStrokeColor = Color.RED
+                d.hintTextColor = ColorStateList.valueOf(Color.RED)
+            } else {
+                d.boxStrokeColor = Color.GREEN
+                d.hintTextColor = ColorStateList.valueOf(Color.GREEN)
+            }
         }
+
+
 
         addressMutableList = mutableListOf(Address("Tel-Aviv", "alanbi", 12))
         address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)

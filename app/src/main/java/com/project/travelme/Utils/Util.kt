@@ -25,7 +25,8 @@ class Util {
         }
 
         fun isValidEmail(str: String): Boolean {
-            val regex = " ^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$".toRegex()
+            val regex = "^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)\$".toRegex()
+            return regex.matches(str)
             return regex.containsMatchIn(str)
         }
     }
