@@ -44,7 +44,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email"
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/phoneNumber"
@@ -79,7 +79,7 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:layout_below="@id/email"
+            android:layout_below="@id/etEmail"
             android:background="?android:attr/listDivider" />
 
         <LinearLayout
@@ -176,6 +176,7 @@
             android:layout_marginLeft="155dp"
             android:layout_marginTop="650dp"
             android:text="@string/bSave"
+            android:onClick="save"
             app:icon="@drawable/baseline_save_alt_black_18dp" />
         </RelativeLayout>
     </ScrollView>

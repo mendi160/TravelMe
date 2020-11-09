@@ -3,16 +3,19 @@ package com.project.travelme.Ui
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import com.project.travelme.AddressDialog
 import com.project.travelme.DestinationAddressActivity
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
+import com.project.travelme.Utils.Address
 import com.project.travelme.Utils.Util
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,9 +26,12 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDeparture: Button
     private lateinit var bReturn: Button
     private lateinit var bSourceAddress: Button
+    private lateinit var etEmail: EditText
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
+
+
     private var isSourceAddress by Delegates.notNull<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +78,25 @@ class AddTravelActivity : AppCompatActivity() {
             )
         }
         bSave = findViewById<Button>(R.id.bSave)
-        //TODO bSave.setOnClickListener { }
+        etEmail = findViewById<EditText>(R.id.etEmail)
+//            etEmail.doOnTextChanged { text, start, before, count ->
+//            if (Util.isValidEmail(text.toString()))
+//                etEmail.setBackgroundColor(Color.GREEN)
+//             else
+//                etEmail.setBackgroundColor(Color.RED)
+
+        }
+
+        addressMutableList = mutableListOf(Address("Tel-Aviv", "alanbi", 12))
+        address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
+
+    }
+
+    companion object {
+
+        lateinit var sourceAddress: Address
+        lateinit var addressMutableList: MutableList<Address>
+        lateinit var address: ArrayAdapter<Address>
     }
 
     fun removePassenger(view: View) {
@@ -143,6 +167,11 @@ class AddTravelActivity : AppCompatActivity() {
         autoTextView.setAdapter(adapter)
         autoTextView.threshold = 1
         dialog.show()
+    }
+
+    fun save(view: View) {
+        //if ()
+
     }
 }
 

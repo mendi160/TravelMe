@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:spinnerMode="dialog"
         android:textAlignment="center"
+
         android:textDirection="firstStrongRtl" />
 
     <TextView
