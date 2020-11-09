@@ -10,9 +10,11 @@ class AddressDialog : AppCompatActivity() {
     lateinit var bSave: Button
     private var isSourceAddress by Delegates.notNull<Boolean>()
     private lateinit var sourceAddress: Address
-    private lateinit var destinationAddresses: MutableList<Address>
+    private lateinit var destinationAddresses: Array<Address>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        destinationAddresses =intent.getSerializableExtra("ad") as Array<Address>
+
         isSourceAddress = intent.getBooleanExtra("bool", false)
         setContentView(R.layout.address_form)
         val autoTextView = findViewById<AutoCompleteTextView>(R.id.actvCities)
@@ -34,11 +36,11 @@ class AddressDialog : AppCompatActivity() {
             if (isSourceAddress)
                 sourceAddress = Address(city, street, number.toInt())
             else
-                destinationAddresses.add(Address(city, street, number.toInt()))
+               destinationAddresses= destinationAddresses.plusElement(Address(city, street, number.toInt()))
             this.finish()
             Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
         }
-        destinationAddresses = mutableListOf()
+        //destinationAddresses = arrayOf()
         autoTextView.setAdapter(adapter)
         autoTextView.threshold = 1
     }

@@ -1,6 +1,8 @@
 package com.project.travelme.Utils
 
-class Address {
+import java.io.Serializable
+
+class Address : Serializable{
     private val _city: String
     private val _street: String
     private val _number: Int
