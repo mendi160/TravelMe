@@ -3,10 +3,12 @@ package com.project.travelme
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.project.travelme.Utils.Address
+
 
 class DestinationAddressActivity : AppCompatActivity() {
     lateinit var address: ArrayAdapter<Address>
@@ -17,10 +19,26 @@ class DestinationAddressActivity : AppCompatActivity() {
         var addressArray = arrayOf(Address("Tel-Aviv", "alanbi", 12))
 
         var mListView = findViewById<ListView>(R.id.lvAddress)
-        address = ArrayAdapter(this,addressArray)
-            this
-            android.R.layout.simple_list_item_1, addressArray
-        )
+        address = (object : ArrayAdapter<Address>(this,R.layout.address_layout, addressArray) {
+
+            override fun getView(position: Int,  convertView: View?, parent: ViewGroup): View {
+
+//                if (convertView == null)    {
+//
+//                     convertView = View.inflate(this@DestinationAddressActivity,R.layout.address_layout,null);
+//                }
+
+
+
+                return super.getView(position, convertView, parent)
+            }
+        })
+
+
+
+
+
+
         mListView.adapter = address
     }
 
