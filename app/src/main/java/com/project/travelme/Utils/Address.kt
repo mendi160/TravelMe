@@ -10,5 +10,9 @@ class Address {
         this._street = _street
         this._number = _number
     }
+
+    override fun toString(): String {
+        return "Address: $_city, $_street, $_number"
+    }
 }
 

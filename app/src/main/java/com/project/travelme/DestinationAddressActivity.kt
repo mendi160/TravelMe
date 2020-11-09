@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.project.travelme.Utils.Address
 
@@ -17,29 +18,10 @@ class DestinationAddressActivity : AppCompatActivity() {
         setContentView(R.layout.activity_destination_address)
         this.setFinishOnTouchOutside(false)
         var addressArray = arrayOf(Address("Tel-Aviv", "alanbi", 12))
-
         var mListView = findViewById<ListView>(R.id.lvAddress)
-        address = (object : ArrayAdapter<Address>(this,R.layout.address_layout, addressArray) {
+        address= ArrayAdapter(this,android.R.layout.simple_list_item_1,addressArray)
+        mListView.adapter=address
 
-            override fun getView(position: Int,  convertView: View?, parent: ViewGroup): View {
-
-//                if (convertView == null)    {
-//
-//                     convertView = View.inflate(this@DestinationAddressActivity,R.layout.address_layout,null);
-//                }
-
-
-
-                return super.getView(position, convertView, parent)
-            }
-        })
-
-
-
-
-
-
-        mListView.adapter = address
     }
 
     fun showAddAddressDialog(view: View) {
