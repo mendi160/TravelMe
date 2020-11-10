@@ -2,25 +2,25 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/klipartz"
+
     android:orientation="vertical"
-    android:background="@drawable/bus_app"
     tools:context=".MainActivity">
 
 
     <Button
         android:id="@+id/addButton"
+        style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="300dp"
         android:text="@string/AddTrvlBtn"
         android:textSize="30dp"
-        android:layout_marginTop="300dp"
-        app:icon="@drawable/baseline_add_24"
-        style="@style/Widget.MaterialComponents.Button.Icon"
 
-       android:layout_gravity="center"
-         />
+        app:icon="@drawable/baseline_add_24" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
