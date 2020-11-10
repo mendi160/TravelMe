@@ -1,4 +1,4 @@
-package com.project.travelme.Ui
+package com.project.travelme
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -14,9 +14,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.project.travelme.AddressDialog
-import com.project.travelme.DestinationAddressActivity
-import com.project.travelme.R
 import com.project.travelme.R.id.passengers
 import com.project.travelme.Utils.Address
 import com.project.travelme.Utils.Util

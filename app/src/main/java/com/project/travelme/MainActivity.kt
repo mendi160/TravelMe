@@ -1,12 +1,13 @@
 package com.project.travelme
 
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.project.travelme.Ui.AddTravelActivity
+import com.google.firebase.database.FirebaseDatabase
+import com.project.travelme.Utils.Address
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +17,15 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             val i = Intent(this@MainActivity, AddTravelActivity::class.java)
             startActivity(i)
+            val database = FirebaseDatabase.getInstance()
+            val myRef = database.getReference("message")
+            try {
+                myRef.setValue(Address("asdasd", "asdsada", 55))
+            }
+            catch (e:Exception)
+            {
+                Log.i("shit",e.message.toString())
+            }
         }
 
     }

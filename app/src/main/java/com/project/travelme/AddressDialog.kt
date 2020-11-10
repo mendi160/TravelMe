@@ -3,7 +3,6 @@ package com.project.travelme
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.project.travelme.Ui.AddTravelActivity
 import com.project.travelme.Utils.Address
 import kotlin.properties.Delegates
 

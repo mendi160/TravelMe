@@ -14,7 +14,7 @@
            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".AddressDialog"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
-        <activity android:name=".Ui.AddTravelActivity" />
+        <activity android:name=".AddTravelActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

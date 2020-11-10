@@ -2,7 +2,7 @@ package com.project.travelme.Utils
 
 import java.io.Serializable
 
-class Address : Serializable{
+class Address {
     private val _city: String
     private val _street: String
     private val _number: Int
