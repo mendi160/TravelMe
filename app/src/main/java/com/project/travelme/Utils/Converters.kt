@@ -15,7 +15,7 @@ class Converters {
             return stringStatusMap.filterValues { it == status }.keys.toString()
         }
 
-        fun fromStringTStatus(status: String): Status? {
+        fun fromStringToStatus(status: String): Status? {
             return stringStatusMap[status]
         }
     }

@@ -18,9 +18,9 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(this@MainActivity, AddTravelActivity::class.java)
             startActivity(i)
             val database = FirebaseDatabase.getInstance()
-            val myRef = database.getReference("message")
+            val myRef = database.getReference("Address")
             try {
-                myRef.setValue(Address("asdasd", "asdsada", 55))
+                myRef.setValue(Address("asdasd", "asdsada", 55).toMap())
             }
             catch (e:Exception)
             {

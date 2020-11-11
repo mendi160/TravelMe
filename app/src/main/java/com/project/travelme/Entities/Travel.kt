@@ -1,10 +1,14 @@
 package com.project.travelme.Entities
 
+import com.google.firebase.database.Exclude
 import com.project.travelme.Utils.Address
+import com.project.travelme.Utils.Converters
 import com.project.travelme.Utils.Enums.Status
+import java.io.Serializable
 import java.time.LocalDate
 
-class Travel {
+
+class Travel : Serializable {
     val name: String
     val phoneNumber: Int
     val email: String
@@ -39,4 +43,18 @@ class Travel {
         this.status = status
         this.serviceProvider = serviceProvider
     }
+
+    @Exclude
+    fun toMap(): Map<String, Any>? {
+        val result: HashMap<String, Any> = HashMap()
+        result["name"] = name
+        result["phoneNumber"] = phoneNumber
+        result["email"] = email
+        result["passengers"] = passengers
+        result["departureDate"] = departureDate.toString()
+        result["returnDate"] = returnDate.toString()
+        result["status"] = Converters.fromStatusToString(status)
+        return result
+    }
+
 }
