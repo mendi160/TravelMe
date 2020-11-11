@@ -14,8 +14,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.database.FirebaseDatabase
+import com.project.travelme.Entities.Travel
 import com.project.travelme.R.id.passengers
 import com.project.travelme.Utils.Address
+import com.project.travelme.Utils.Converters
+import com.project.travelme.Utils.Enums.Status
 import com.project.travelme.Utils.Util
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,6 +27,8 @@ import kotlin.properties.Delegates
 
 class AddTravelActivity : AppCompatActivity() {
     private lateinit var etPassengers: EditText
+    private lateinit var tvDepartureDate: TextView
+    private lateinit var tvReturnDate: TextView
     private lateinit var bDeparture: Button
     private lateinit var bReturn: Button
     private lateinit var bSourceAddress: Button
@@ -30,8 +36,6 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
-
-
     private var isSourceAddress by Delegates.notNull<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,8 +94,10 @@ class AddTravelActivity : AppCompatActivity() {
                 d.hintTextColor = ColorStateList.valueOf(Color.GREEN)
             }
         }
-
-
+        tvDepartureDate =
+            findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView)
+        tvReturnDate =
+            findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(R.id.dateTextView)
 
         addressMutableList = mutableListOf(Address("Tel-Aviv", "alanbi", 12))
         address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
@@ -129,12 +135,8 @@ class AddTravelActivity : AppCompatActivity() {
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH).toInt()
         val day = c.get(Calendar.DAY_OF_MONTH)
-        val departureTextView: TextView =
-            findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView)
-        val returnTextView: TextView =
-            findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(R.id.dateTextView)
-        var departureDate = departureTextView.text.toString()
-        val returnDate = returnTextView.text.toString()
+        var departureDate = tvDepartureDate.text.toString()
+        val returnDate = tvReturnDate.text.toString()
         val dpd = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
@@ -142,13 +144,13 @@ class AddTravelActivity : AppCompatActivity() {
                 textV.text = "" + dayOfMonth + "," + (monthOfYear.toInt() + 1) + "," + year
                 bReturn.isEnabled = true
                 if (Util.compareStringsOfDate(textV.text.toString(), returnDate))
-                    returnTextView.text = departureTextView.text.toString()
+                    tvReturnDate.text = tvDepartureDate.text.toString()
             },
             year,
             month,
             day
         )
-        if (departureTextView == textV)
+        if (tvDepartureDate == textV)
             dpd.datePicker.minDate = System.currentTimeMillis() - 1000
         else
             dpd.datePicker.minDate = SimpleDateFormat("dd,MM,yyyy").parse(departureDate).time
@@ -176,8 +178,30 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     fun save(view: View) {
-        //if ()
-
+        var name = findViewById<EditText>(R.id.name).text.toString()
+        var email = etEmail.text.toString()
+        var departureDate = tvDepartureDate.text.toString()
+        var returnDate = tvReturnDate.text.toString()
+        var sourceAddress = sourceAddress
+        var destAddress = addressMutableList
+        var phoneNumber = findViewById<EditText>(R.id.phoneNumber).text.toString().toInt()
+        var passengers = etPassengers.text.toString().toInt()
+        var status: Status =
+            Converters.fromStringToStatus(findViewById<EditText>(R.id.etStatus).text.toString())!!
+        var travel = Travel(
+            name,
+            phoneNumber,
+            email,
+            sourceAddress,
+            destAddress,
+            passengers,
+            Converters.fromStringToGeorgianCalender(departureDate),
+            Converters.fromStringToGeorgianCalender(returnDate),
+            status
+        )
+        var ins = FirebaseDatabase.getInstance()
+        var ref = ins.getReference("newTravel")
+        ref.setValue(travel.toMap())
     }
 }
 

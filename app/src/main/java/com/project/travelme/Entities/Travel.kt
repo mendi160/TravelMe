@@ -5,7 +5,8 @@ import com.project.travelme.Utils.Address
 import com.project.travelme.Utils.Converters
 import com.project.travelme.Utils.Enums.Status
 import java.io.Serializable
-import java.time.LocalDate
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class Travel : Serializable {
@@ -15,10 +16,10 @@ class Travel : Serializable {
     val sourceAdders: Address
     val destinationAddress: MutableList<Address>
     val passengers: Int
-    val departureDate: LocalDate
-    val returnDate: LocalDate
-    val status: Status
-    val serviceProvider: Map<String, Boolean>
+    val departureDate: GregorianCalendar
+    val returnDate: GregorianCalendar
+    var status: Status
+    var serviceProvider: Map<String, Boolean>
 
     constructor(
         name: String,
@@ -27,10 +28,10 @@ class Travel : Serializable {
         sourceAdders: Address,
         destinationAddress: MutableList<Address>,
         passengers: Int,
-        departureDate: LocalDate,
-        returnDate: LocalDate,
+        departureDate: GregorianCalendar,
+        returnDate: GregorianCalendar,
         status: Status,
-        serviceProvider: Map<String, Boolean>
+        serviceProvider: Map<String, Boolean> = mapOf(" " to false)
     ) {
         this.name = name
         this.phoneNumber = phoneNumber
@@ -51,8 +52,9 @@ class Travel : Serializable {
         result["phoneNumber"] = phoneNumber
         result["email"] = email
         result["passengers"] = passengers
-        result["departureDate"] = departureDate.toString()
-        result["returnDate"] = returnDate.toString()
+        result["departureDate"] = Converters.fromGeorgianCalenderToString(departureDate)
+        result["returnDate"] = Converters.fromGeorgianCalenderToString(returnDate)
+        //  result["SourceAdders"] = sourceAdders.toMap().toString()
         result["status"] = Converters.fromStatusToString(status)
         return result
     }

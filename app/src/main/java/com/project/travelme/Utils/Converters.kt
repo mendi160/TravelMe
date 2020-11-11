@@ -1,6 +1,8 @@
 package com.project.travelme.Utils
 
 import com.project.travelme.Utils.Enums.Status
+import java.text.SimpleDateFormat
+import java.util.*
 
 // example converter for java.util.Date
 class Converters {
@@ -17,6 +19,19 @@ class Converters {
 
         fun fromStringToStatus(status: String): Status? {
             return stringStatusMap[status]
+        }
+
+        fun fromGeorgianCalenderToString(date: GregorianCalendar): String {
+            return "${date.get(Calendar.DAY_OF_MONTH)},${date.get(Calendar.MONTH)},${
+                date.get(
+                    Calendar.YEAR
+                )
+            }"
+        }
+
+        fun fromStringToGeorgianCalender(date: String): GregorianCalendar {
+            val Date = Date(SimpleDateFormat("dd,MM,yyyy").parse(date).time)
+            return GregorianCalendar(Date.day, Date.month, Date.year)
         }
     }
 }
