@@ -36,6 +36,8 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
+
+
     private var isSourceAddress by Delegates.notNull<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -178,16 +180,16 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     fun save(view: View) {
-        var name = findViewById<EditText>(R.id.name).text.toString()
+        var name = findViewById<TextInputEditText>(R.id.etName).text.toString()
         var email = etEmail.text.toString()
         var departureDate = tvDepartureDate.text.toString()
         var returnDate = tvReturnDate.text.toString()
         var sourceAddress = sourceAddress
         var destAddress = addressMutableList
-        var phoneNumber = findViewById<EditText>(R.id.phoneNumber).text.toString().toInt()
+        var phoneNumber = findViewById<TextInputEditText>(R.id.etPhone).text.toString().toInt()
         var passengers = etPassengers.text.toString().toInt()
         var status: Status =
-            Converters.fromStringToStatus(findViewById<EditText>(R.id.etStatus).text.toString())!!
+            Converters.fromStringToStatus(findViewById<TextInputEditText>(R.id.etStatus1).text.toString())!!
         var travel = Travel(
             name,
             phoneNumber,
