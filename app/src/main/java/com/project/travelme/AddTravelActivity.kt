@@ -12,11 +12,12 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
+
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.database.FirebaseDatabase
 import com.project.travelme.Entities.Travel
 import com.project.travelme.R.id.passengers
+import com.project.travelme.Ui.TravelViewModel
 import com.project.travelme.Utils.Address
 import com.project.travelme.Utils.Converters
 import com.project.travelme.Utils.Enums.Status
@@ -24,6 +25,7 @@ import com.project.travelme.Utils.Util
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.properties.Delegates
+
 
 class AddTravelActivity : AppCompatActivity() {
     private lateinit var etPassengers: EditText
@@ -35,6 +37,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var etEmail: TextInputEditText
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
+    private lateinit var viewModel: TravelViewModel
     private lateinit var dialog: Dialog
 
 
@@ -44,6 +47,7 @@ class AddTravelActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_travel)
         this.setFinishOnTouchOutside(false)
+        viewModel = TravelViewModel()//.of(this).get(TravelViewModel::class.java)
         etPassengers = findViewById<EditText>(passengers)
         etPassengers.addTextChangedListener {
             val text = etPassengers.text.toString()
@@ -103,7 +107,12 @@ class AddTravelActivity : AppCompatActivity() {
 
         addressMutableList = mutableListOf(Address("Tel-Aviv", "alanbi", 12))
         address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
-
+        viewModel.getIsSuccess().observe(this, {
+            if (it)
+                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
+            else
+                Toast.makeText(this, "fucked", Toast.LENGTH_SHORT).show()
+        })
     }
 
     companion object {
@@ -201,9 +210,11 @@ class AddTravelActivity : AppCompatActivity() {
             Converters.fromStringToGeorgianCalender(returnDate),
             status
         )
-        var ins = FirebaseDatabase.getInstance()
-        var ref = ins.getReference("newTravel")
-        ref.setValue(travel.toMap())
+        try {
+            viewModel.saveTravel(travel)
+        } catch (e: Exception) {
+            print(e.message)
+        }
     }
 }
 

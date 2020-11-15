@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 myRef.setValue(trv
                   .toMap()
                 )
-                myRef1.setValue(trv.sourceAdders.toMap())
+                myRef1.setValue(trv.sourceAdders)
             } catch (e: Exception) {
                 Log.i("shit", e.message.toString())
             }

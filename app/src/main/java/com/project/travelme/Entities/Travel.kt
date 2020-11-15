@@ -4,22 +4,41 @@ import com.google.firebase.database.Exclude
 import com.project.travelme.Utils.Address
 import com.project.travelme.Utils.Converters
 import com.project.travelme.Utils.Enums.Status
-import java.io.Serializable
 import java.util.*
 import kotlin.collections.HashMap
 
 
-class Travel : Serializable {
-    val name: String
-    val phoneNumber: Int
-    val email: String
-    val sourceAdders: Address
-    val destinationAddress: MutableList<Address>
-    val passengers: Int
-    val departureDate: GregorianCalendar
-    val returnDate: GregorianCalendar
+class Travel {
+    var name: String
+        private set
+        get() = field
+    var phoneNumber: Int
+        private set
+        get() = field
+    var email: String
+        private set
+        get() = field
+    var sourceAdders: Address
+        private set
+        get() = field
+    var destinationAddress: MutableList<Address>
+        private set
+        get() = field
+    var passengers: Int
+        private set
+        get() = field
+    var departureDate: GregorianCalendar
+        private set
+        get() = field
+    var returnDate: GregorianCalendar
+        private set
+        get() = field
     var status: Status
+        private set
+        get() = field
     var serviceProvider: Map<String, Boolean>
+        private set
+        get() = field
 
     constructor(
         name: String,
@@ -31,7 +50,7 @@ class Travel : Serializable {
         departureDate: GregorianCalendar,
         returnDate: GregorianCalendar,
         status: Status,
-        serviceProvider: Map<String, Boolean> = mapOf(" " to false)
+        serviceProvider: Map<String, Boolean> = mapOf(" " to false),
     ) {
         this.name = name
         this.phoneNumber = phoneNumber
