@@ -1,5 +1,6 @@
 package com.project.travelme
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
@@ -12,6 +13,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -117,7 +119,7 @@ class AddTravelActivity : AppCompatActivity() {
 
     companion object {
 
-        lateinit var sourceAddress: Address
+        var sourceAddress: Address= Address("","",0)
         lateinit var addressMutableList: MutableList<Address>
         lateinit var address: ArrayAdapter<Address>
     }
@@ -195,17 +197,35 @@ class AddTravelActivity : AppCompatActivity() {
         var returnDate = tvReturnDate.text.toString()
         var sourceAddress = sourceAddress
         var destAddress = addressMutableList
-        var phoneNumber = findViewById<TextInputEditText>(R.id.etPhone).text.toString().toInt()
-        var passengers = etPassengers.text.toString().toInt()
+        var phoneNumber = findViewById<TextInputEditText>(R.id.etPhone).text.toString()
+        var passengers = etPassengers.text.toString()
         var status: Status =
             Converters.fromStringToStatus(findViewById<TextInputEditText>(R.id.etStatus1).text.toString())!!
+        var list = listOf<String>(
+            name,
+            email,
+            departureDate,
+            returnDate,
+            sourceAddress._city,
+            destAddress[0]._city,
+            phoneNumber,
+            passengers,
+            status.name
+        )
+        if (true && !list.all { x-> x!="" }&& Util.isValidEmail(email)) {
+            MaterialAlertDialogBuilder(this).setTitle("Error")
+                .setMessage("Please make sure everything is correct").setNeutralButton("OK", {which ,dialog-> which.dismiss()}).show()
+            return
+        }
+
+
         var travel = Travel(
             name,
-            phoneNumber,
+            phoneNumber.toInt(),
             email,
             sourceAddress,
             destAddress,
-            passengers,
+            passengers.toInt(),
             Converters.fromStringToGeorgianCalender(departureDate),
             Converters.fromStringToGeorgianCalender(returnDate),
             status
