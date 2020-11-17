@@ -212,7 +212,7 @@ class AddTravelActivity : AppCompatActivity() {
             passengers,
             status.name
         )
-        if (true && !list.all { x-> x!="" }&& Util.isValidEmail(email)) {
+        if (true && !list.all { x-> x!="" }|| !Util.isValidEmail(email)) {
             MaterialAlertDialogBuilder(this).setTitle("Error")
                 .setMessage("Please make sure everything is correct").setNeutralButton("OK", {which ,dialog-> which.dismiss()}).show()
             return
