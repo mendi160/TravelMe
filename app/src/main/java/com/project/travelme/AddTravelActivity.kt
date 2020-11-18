@@ -1,6 +1,5 @@
 package com.project.travelme
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
@@ -14,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.project.travelme.Entities.Travel
@@ -119,7 +117,7 @@ class AddTravelActivity : AppCompatActivity() {
 
     companion object {
 
-        var sourceAddress: Address= Address("","",0)
+        var sourceAddress: Address = Address("", "", 0)
         lateinit var addressMutableList: MutableList<Address>
         lateinit var address: ArrayAdapter<Address>
     }
@@ -212,9 +210,10 @@ class AddTravelActivity : AppCompatActivity() {
             passengers,
             status.name
         )
-        if (true && !list.all { x-> x!="" }&& Util.isValidEmail(email)) {
+        if (true && !list.all { x -> x != "" } && !Util.isValidEmail(email)) {
             MaterialAlertDialogBuilder(this).setTitle("Error")
-                .setMessage("Please make sure everything is correct").setNeutralButton("OK", {which ,dialog-> which.dismiss()}).show()
+                .setMessage("Please make sure everything is correct")
+                .setNeutralButton("OK") { which, _ -> which.dismiss() }.show()
             return
         }
 

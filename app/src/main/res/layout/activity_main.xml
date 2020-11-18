@@ -2,9 +2,9 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/klipartz"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/template"
 
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -15,12 +15,12 @@
         style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="300dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="550dp"
         android:text="@string/AddTrvlBtn"
-        android:textSize="30dp"
-
+        android:textSize="30sp"
         app:icon="@drawable/baseline_add_24" />
+
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
