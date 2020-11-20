@@ -13,6 +13,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 import com.google.android.material.textfield.TextInputEditText
@@ -49,7 +50,7 @@ class AddTravelActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_travel)
         this.setFinishOnTouchOutside(false)
-        viewModel = TravelViewModel()//.of(this).get(TravelViewModel::class.java)
+        viewModel  = ViewModelProviders.of(this).get(TravelViewModel::class.java)
         etPassengers = findViewById<EditText>(passengers)
         etPassengers.addTextChangedListener {
             val text = etPassengers.text.toString()
@@ -232,7 +233,7 @@ class AddTravelActivity : AppCompatActivity() {
             status
         )
         try {
-            viewModel.saveTravel(travel)
+            viewModel.insertItem(travel)
         } catch (e: Exception) {
             print(e.message)
         }

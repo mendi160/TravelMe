@@ -5,30 +5,34 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.project.travelme.Entities.Travel
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
-@Database(entities = [Travel::class], version = 1)
-abstract class TravelRoomDataBase : RoomDatabase(), TravelDAO {
-    abstract fun travelDao(): TravelDAO
+
+@Database(entities = [Travel::class], version = 1, exportSchema = false)
+abstract class TravelRoomDataBase : RoomDatabase() {
+    abstract fun itemDao(): TravelDAO
 
     companion object {
-        // Singleton prevents multiple instances of database opening at the
-        // same time.
+        // marking the instance as volatile to ensure atomic access to the variable
         @Volatile
         private var INSTANCE: TravelRoomDataBase? = null
+        private const val NUMBER_OF_THREADS = 4
+        val databaseWriteExecutor: ExecutorService = Executors.newFixedThreadPool(
+            NUMBER_OF_THREADS)
 
-        fun getDatabase(context: Context): TravelRoomDataBase {
-            // if the INSTANCE is not null, then return it,
-            // if it is, then create the database
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    TravelRoomDataBase::class.java,
-                    "word_database"
-                ).build()
-                INSTANCE = instance
-                // return instance
-                instance
+        fun getDatabase(context: Context): TravelRoomDataBase? {
+            if (INSTANCE == null) {
+                synchronized(TravelRoomDataBase::class.java) {
+                    if (INSTANCE == null) {
+                        INSTANCE =
+                            Room.databaseBuilder(context.applicationContext,
+                                TravelRoomDataBase::class.java, "travel_database")
+                                .build()
+                    }
+                }
             }
+            return INSTANCE
         }
     }
 }
