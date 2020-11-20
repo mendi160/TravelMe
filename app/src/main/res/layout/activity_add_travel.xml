@@ -43,7 +43,9 @@
                 android:layout_width="match_parent"
                 android:id="@+id/etPhone"
                 android:layout_height="match_parent"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:digits="0123456789"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:hint="number of passengers"
                 android:inputType="number"
+                android:digits="0123456789"
                 android:textAlignment="center" />
 
             <Button

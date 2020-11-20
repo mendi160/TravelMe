@@ -13,7 +13,7 @@ constructor(){
 }
     fun add (travel : Travel)
     {
-        dao.addTravel(travel)
+        dao.insertTravel(travel)
     }
     fun remove (){}
     fun  update (){}

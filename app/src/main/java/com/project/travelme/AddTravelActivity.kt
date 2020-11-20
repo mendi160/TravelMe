@@ -227,8 +227,8 @@ class AddTravelActivity : AppCompatActivity() {
             sourceAddress,
             destAddress,
             passengers.toInt(),
-            Converters.fromStringToGeorgianCalender(departureDate),
-            Converters.fromStringToGeorgianCalender(returnDate),
+            departureDate,
+            returnDate,
             status
         )
         try {
