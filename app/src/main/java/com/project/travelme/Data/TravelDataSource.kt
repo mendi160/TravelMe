@@ -8,8 +8,6 @@ import com.project.travelme.Entities.Travel
 class TravelDataSource : TravelDAO {
     val database = FirebaseDatabase.getInstance()
     var isSuccessLiveData = MutableLiveData<Boolean>()
-
-
     override fun insertTravel(travel: Travel) {
         var ins = FirebaseDatabase.getInstance()
         var ref = ins.getReference("Travels")
@@ -30,6 +28,14 @@ class TravelDataSource : TravelDAO {
     }
 
     override fun getTravel(num: Int): LiveData<Travel> {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteAllTravels() {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllTravels(): LiveData<List<Travel>> {
         TODO("Not yet implemented")
     }
 

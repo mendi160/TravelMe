@@ -1,8 +1,8 @@
 package com.project.travelme
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -13,9 +13,9 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.project.travelme.Entities.Travel
@@ -31,6 +31,8 @@ import kotlin.properties.Delegates
 
 
 class AddTravelActivity : AppCompatActivity() {
+    private lateinit var viewModel: TravelViewModel
+    lateinit var context: Context
     private lateinit var etPassengers: EditText
     private lateinit var tvDepartureDate: TextView
     private lateinit var tvReturnDate: TextView
@@ -40,17 +42,16 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var etEmail: TextInputEditText
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
-    private lateinit var viewModel: TravelViewModel
     private lateinit var dialog: Dialog
-
 
     private var isSourceAddress by Delegates.notNull<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        context = this@AddTravelActivity
         setContentView(R.layout.activity_add_travel)
         this.setFinishOnTouchOutside(false)
-        viewModel  = ViewModelProviders.of(this).get(TravelViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
         etPassengers = findViewById<EditText>(passengers)
         etPassengers.addTextChangedListener {
             val text = etPassengers.text.toString()
@@ -110,12 +111,12 @@ class AddTravelActivity : AppCompatActivity() {
 
         addressMutableList = mutableListOf(Address("Tel-Aviv", "alanbi", 12))
         address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
-        viewModel.getIsSuccess().observe(this, {
-            if (it)
-                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
-            else
-                Toast.makeText(this, "fucked", Toast.LENGTH_SHORT).show()
-        })
+//        viewModel.getIsSuccess().observe(this, {
+//            if (it)
+//                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
+//            else
+//                Toast.makeText(this, "fucked", Toast.LENGTH_SHORT).show()
+//        })
     }
 
     companion object {
@@ -192,50 +193,73 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     fun save(view: View) {
-        var name = findViewById<TextInputEditText>(R.id.etName).text.toString()
-        var email = etEmail.text.toString()
-        var departureDate = tvDepartureDate.text.toString()
-        var returnDate = tvReturnDate.text.toString()
-        var sourceAddress = sourceAddress
-        var destAddress = addressMutableList
-        var phoneNumber = findViewById<TextInputEditText>(R.id.etPhone).text.toString()
-        var passengers = etPassengers.text.toString()
-        var status: Status =
-            Converters.fromStringToStatus(findViewById<TextInputEditText>(R.id.etStatus1).text.toString())!!
-        var list = listOf<String>(
-            name,
-            email,
-            departureDate,
-            returnDate,
-            sourceAddress._city,
-            destAddress[0]._city,
-            phoneNumber,
-            passengers,
-            status.name
-        )
-        if (true && !list.all { x-> x!="" }|| !Util.isValidEmail(email)) {
-            MaterialAlertDialogBuilder(this).setTitle("Error")
-                .setMessage("Please make sure everything is correct")
-                .setNeutralButton("OK") { which, _ -> which.dismiss() }.show()
-            return
+        if (false) {
+            var name = findViewById<TextInputEditText>(R.id.etName).text.toString()
+            var email = etEmail.text.toString()
+            var departureDate = tvDepartureDate.text.toString()
+            var returnDate = tvReturnDate.text.toString()
+            var sourceAddress = sourceAddress
+            var destAddress = addressMutableList
+            var phoneNumber = findViewById<TextInputEditText>(R.id.etPhone).text.toString()
+            var passengers = etPassengers.text.toString()
+            var status: Status =
+                Converters.fromStringToStatus(findViewById<TextInputEditText>(R.id.etStatus1).text.toString())!!
+            var list = listOf<String>(
+                name,
+                email,
+                departureDate,
+                returnDate,
+                sourceAddress._city,
+                destAddress[0]._city,
+                phoneNumber,
+                passengers,
+                status.name
+            )
+            if (true && !list.all { x -> x != "" } || !Util.isValidEmail(email)) {
+                MaterialAlertDialogBuilder(this).setTitle("Error")
+                    .setMessage("Please make sure everything is correct")
+                    .setNeutralButton("OK") { which, _ -> which.dismiss() }.show()
+                return
+            }
+
+
+            var travel = Travel(
+                1,
+                name,
+                phoneNumber.toInt(),
+                email,
+//                sourceAddress,
+//                destAddress,
+                passengers.toInt(),
+                departureDate,
+                returnDate,
+                //status
+            )
+            try {
+                viewModel.saveTravel(context, travel)
+            } catch (e: Exception) {
+                print(e.message)
+            }
         }
-
-
-        var travel = Travel(
-            name,
-            phoneNumber.toInt(),
-            email,
-            sourceAddress,
-            destAddress,
-            passengers.toInt(),
-            departureDate,
-            returnDate,
-            status
-        )
-        try {
-            viewModel.insertItem(travel)
-        } catch (e: Exception) {
-            print(e.message)
+        else
+        {
+            var travel = Travel(
+                1,
+                "name",
+                1233,
+                "sss",
+//                Address("jhjk","daas",212),
+//                mutableListOf( Address("jhjk","daas",212)),
+                passengers.toInt(),
+                "baabaa",
+                "babaabab",
+               // Status.SENT
+            )
+            try {
+                viewModel.saveTravel(context, travel)
+            } catch (e: Exception) {
+                print(e.message)
+            }
         }
     }
 }

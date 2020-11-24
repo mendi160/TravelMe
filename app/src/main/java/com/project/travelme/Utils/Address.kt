@@ -1,5 +1,8 @@
 package com.project.travelme.Utils
 
+import androidx.room.TypeConverters
+
+@TypeConverters(Converters::class)
 class Address {
     var _city: String
         private set

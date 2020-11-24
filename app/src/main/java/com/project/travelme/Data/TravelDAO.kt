@@ -1,5 +1,5 @@
 package com.project.travelme.Data
-import  com.project.travelme.Data.TravelRoomDataBase
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.*
@@ -7,7 +7,7 @@ import com.project.travelme.Entities.Travel
 
 @Dao
 interface TravelDAO {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTravel(travel: Travel)
 
     @Delete
@@ -18,6 +18,13 @@ interface TravelDAO {
 
     @Query("SELECT * FROM travel_table WHERE :num == id")
     fun getTravel(num: Int): LiveData<Travel>
-    fun isSuccess(): MutableLiveData<Boolean>
+
+    @Query("DELETE FROM travel_table")
+    fun deleteAllTravels()
+
+    @Query("SELECT * FROM travel_table")
+    fun getAllTravels(): LiveData<List<Travel>>
+
+   // fun isSuccess(): MutableLiveData<Boolean>
 
 }
