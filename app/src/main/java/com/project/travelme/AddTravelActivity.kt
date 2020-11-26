@@ -41,7 +41,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
-    private var debug = true
+    private var debug = false
 
     private var isSourceAddress by Delegates.notNull<Boolean>()
 
@@ -148,7 +148,7 @@ class AddTravelActivity : AppCompatActivity() {
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH).toInt()
         val day = c.get(Calendar.DAY_OF_MONTH)
-        var departureDate = tvDepartureDate.text.toString()
+        val departureDate = tvDepartureDate.text.toString()
         val returnDate = tvReturnDate.text.toString()
         val dpd = DatePickerDialog(
             this,
