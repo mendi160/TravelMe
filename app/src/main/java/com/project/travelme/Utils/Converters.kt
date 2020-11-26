@@ -39,13 +39,13 @@ class Converters {
 
     }
 }
-class addCon{
+class AddressConverter{
     @TypeConverter
-    fun fromAddressToString(add:Address):String{
+    fun fromAddress(add:Address):String{
         return add.toString()
     }
     @TypeConverter
-    fun fromStringToAddress(add:Address):Address{
+    fun toAddress(add:Address):Address{
         return Address("kak","aa",1)
     }
 }

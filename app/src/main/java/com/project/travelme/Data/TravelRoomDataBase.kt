@@ -6,12 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.project.travelme.Entities.Travel
-import com.project.travelme.Utils.Converters
-import com.project.travelme.Utils.addCon
+import com.project.travelme.Utils.AddressConverter
 
 
-@Database(entities = [Travel::class], version = 1, exportSchema = false)
-@TypeConverters(addCon::class)
+//@Database(entities = [Travel::class], version = 1, exportSchema = false)
+//@TypeConverters(AddressConverter::class)
 abstract class TravelRoomDataBase : RoomDatabase() {
     abstract fun travelDao(): TravelDAO
 

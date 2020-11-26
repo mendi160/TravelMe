@@ -14,16 +14,6 @@ class Util {
             ).parse(firstDate).time < 0
         }
 
-        fun isNumber(str: String): Boolean {
-            try {
-                str.toInt()
-                return true
-            } catch (e: Exception) {
-
-                return false
-            }
-        }
-
         fun isValidEmail(str: String): Boolean {
             val regex = "^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)\$".toRegex()
             return regex.matches(str)
