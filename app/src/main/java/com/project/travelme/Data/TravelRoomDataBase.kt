@@ -26,7 +26,7 @@ abstract class TravelRoomDataBase : RoomDatabase() {
             if (INSTANCE != null) return INSTANCE!!
             synchronized(this) {
                 INSTANCE = Room
-                    .databaseBuilder(context, TravelRoomDataBase::class.java, "LOGIN_DATABASE")
+                    .databaseBuilder(context, TravelRoomDataBase::class.java, "Travel")
                     .fallbackToDestructiveMigration()
                     .build()
 
