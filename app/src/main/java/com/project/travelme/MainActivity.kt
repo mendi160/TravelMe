@@ -54,11 +54,15 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
+            val user = FirebaseAuth.getInstance().currentUser
 
+            if (user != null) {
+                Toast.makeText(this, user.uid.toString(), Toast.LENGTH_LONG).show()
+            }
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
-                Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
+
+
 
                 // ...
             } else {
