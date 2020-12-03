@@ -2,6 +2,7 @@ package com.project.travelme.Entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.android.libraries.places.api.model.Place
 import com.project.travelme.Utils.Address
 import com.project.travelme.Utils.Enums.Status
 
@@ -20,12 +21,12 @@ class Travel {
     var email: String
         private set
         get() = field
-    var sourceAdders: Address
+    var sourceAdders: String
         private set
         get() = field
 
     //@TypeConverters(addCon::class)
-    var destinationAddress: MutableList<Address>
+    var destinationAddress: MutableList<String>
         private set
         get() = field
 
@@ -53,8 +54,8 @@ class Travel {
         name: String,
         phoneNumber: Int,
         email: String,
-        sourceAdders: Address,
-        destinationAddress: MutableList<Address>,
+        sourceAdders: String,
+        destinationAddress: MutableList<String>,
         passengers: Int,
         departureDate: String,
         returnDate: String,

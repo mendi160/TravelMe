@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.libraries.places.api.model.Place
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -107,21 +108,21 @@ class AddTravelActivity : AppCompatActivity() {
         tvReturnDate =
             findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(R.id.dateTextView)
 
-        addressMutableList = mutableListOf(Address("Tel-Aviv", "alanbi", 12))
+        addressMutableList = mutableListOf("Shuky")
         address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
         viewModel.getIsSuccess().observe(this, {
             if (it)
                 Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
             else
-                Toast.makeText(this, "fucked", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "not saved", Toast.LENGTH_SHORT).show()
         })
     }
 
     companion object {
 
-        var sourceAddress: Address = Address("", "", 0)
-        lateinit var addressMutableList: MutableList<Address>
-        lateinit var address: ArrayAdapter<Address>
+         var sourceAddress: String=""
+        lateinit var addressMutableList: MutableList<String>
+        lateinit var address: ArrayAdapter<String>
     }
 
     fun removePassenger(view: View) {
@@ -187,8 +188,8 @@ class AddTravelActivity : AppCompatActivity() {
                 email,
                 departureDate,
                 returnDate,
-                sourceAddress._city,
-                destAddress[0]._city,
+                sourceAddress,
+                destAddress[0],
                 phoneNumber,
                 passengers,
                 status.name
@@ -218,20 +219,20 @@ class AddTravelActivity : AppCompatActivity() {
                 print(e.message)
             }
         } else {
-            val travel = Travel(
-                1,
-                "name",
-                1233,
-                "sss",
-                Address("jhjk", "daas", 212),
-                mutableListOf(Address("jhjk", "daas", 212)),
-                passengers.toInt(),
-                "baabaa",
-                "babaabab",
-                Status.SENT
-            )
+//            val travel = Travel(
+//                1,
+//                "name",
+//                1233,
+//                "sss",
+//                Address("jhjk", "daas", 212),
+//                mutableListOf(Address("jhjk", "daas", 212)),
+//                passengers.toInt(),
+//                "baabaa",
+//                "babaabab",
+//                Status.SENT
+     //       )
             try {
-                viewModel.insertTravel(context, travel)
+              //  viewModel.insertTravel(context, travel)
             } catch (e: Exception) {
                 print(e.message)
             }

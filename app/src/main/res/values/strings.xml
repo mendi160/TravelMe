@@ -8,7 +8,7 @@
     <string name="bSourceAddress">source address</string>
     <string name="bDestinationAddress">Destination address</string>
     <string name="pick_date">Pick Date</string>
-    <string name="tvCity">City</string>
+    <string name="tvAddress">Address</string>
     <string name="tvStreet">Street</string>
     <string name="tvHouseNumber">House number</string>
     <string name="bSave">Save</string>
