@@ -26,14 +26,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var button: Button = findViewById<Button>(R.id.addButton)
-        createSignInIntent()
 
-        Places.initialize(applicationContext,api)
-        var placeClient =Places.createClient(this)
+
+
+
         button.setOnClickListener {
-            val i = Intent(this@MainActivity, AddTravelActivity::class.java)
+            createSignInIntent()
 
-            startActivity(i)
 
         }
 
@@ -51,7 +50,8 @@ class MainActivity : AppCompatActivity() {
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setIsSmartLockEnabled(true).setLogo(R.drawable.klipartz)
+                .setIsSmartLockEnabled(false).setLogo(R.drawable.klipartz)
+
                 .build(),
             RC_SIGN_IN
         )
@@ -67,11 +67,14 @@ class MainActivity : AppCompatActivity() {
             val response = IdpResponse.fromResultIntent(data)
             val user = FirebaseAuth.getInstance().currentUser
 
+
             if (user != null) {
                 Toast.makeText(this, user.uid.toString(), Toast.LENGTH_LONG).show()
             }
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
+                val i = Intent(this@MainActivity, AddTravelActivity::class.java)
+                startActivity(i)
 
 
 

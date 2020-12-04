@@ -12,11 +12,15 @@ class TravelDataSource : TravelDAO {
     private val database = FirebaseDatabase.getInstance()
     var isSuccessLiveData = MutableLiveData<Boolean>()
     var cildCount :Int =0
-    val user = FirebaseAuth.getInstance().currentUser
-    val ref = database.getReference("Travels")
-    val ref2 = user?.let { ref.child(it.uid) }
 
-    constructor(){
+
+
+    override fun insertTravel(travel: Travel) {
+
+        val user = FirebaseAuth.getInstance().currentUser
+        val ref = database.getReference("Travels")
+        val ref2 = user?.let { ref.child(it.uid) }
+
         ref2?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 cildCount= snapshot.childrenCount.toInt()
@@ -26,8 +30,6 @@ class TravelDataSource : TravelDAO {
                 TODO("Not yet implemented")
             }
         })
-    }
-    override fun insertTravel(travel: Travel) {
         val ref3= ref2?.child("Request_$cildCount")
         ref3?.setValue(travel)?.addOnSuccessListener {
             isSuccessLiveData.postValue(true)
