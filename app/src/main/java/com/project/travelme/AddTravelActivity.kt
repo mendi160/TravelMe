@@ -42,7 +42,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
-    private var debug = false
+    private var debug = true
 
     private var isSourceAddress by Delegates.notNull<Boolean>()
 
@@ -219,20 +219,20 @@ class AddTravelActivity : AppCompatActivity() {
                 print(e.message)
             }
         } else {
-//            val travel = Travel(
-//                1,
-//                "name",
-//                1233,
-//                "sss",
-//                Address("jhjk", "daas", 212),
-//                mutableListOf(Address("jhjk", "daas", 212)),
-//                passengers.toInt(),
-//                "baabaa",
-//                "babaabab",
-//                Status.SENT
-     //       )
+            val travel = Travel(
+                1,
+                "name",
+                1233,
+                "sss",
+                "Address(jhjk, daas, 212)",
+                mutableListOf("(jhjk, daas, 212)"),
+                passengers.toInt(),
+                "baabaa",
+                "babaabab",
+                Status.SENT
+           )
             try {
-              //  viewModel.insertTravel(context, travel)
+               viewModel.insertTravel(context, travel)
             } catch (e: Exception) {
                 print(e.message)
             }
