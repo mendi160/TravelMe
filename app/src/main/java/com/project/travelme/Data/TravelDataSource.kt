@@ -11,7 +11,7 @@ import com.project.travelme.Entities.Travel
 class TravelDataSource : TravelDAO {
     private val database = FirebaseDatabase.getInstance()
     var isSuccessLiveData = MutableLiveData<Boolean>()
-    var cildCount :Int =0
+    var childCount :Int =0
 
 
 
