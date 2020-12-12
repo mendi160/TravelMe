@@ -3,6 +3,7 @@ package com.project.travelme.Entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.android.libraries.places.api.model.Place
+import com.google.gson.annotations.SerializedName
 import com.project.travelme.Utils.Address
 import com.project.travelme.Utils.Enums.Status
 

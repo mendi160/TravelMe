@@ -21,7 +21,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
-    private val api = "AIzaSyBUPxQMO2iI0DS_WTeetlcND9mpWaUCyyY"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

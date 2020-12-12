@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
@@ -20,7 +21,8 @@ class AddressDialog : AppCompatActivity() {
         isSourceAddress = intent.getBooleanExtra("bool", false)
         setContentView(R.layout.address_form)
         bSave = findViewById<Button>(R.id.bSaveAddress)
-
+         val api = "AIzaSyBUPxQMO2iI0DS_WTeetlcND9mpWaUCyyY"
+        Places.initialize(applicationContext, api)
 
         // Initialize the AutocompleteSupportFragment.
         val autocompleteFragment =

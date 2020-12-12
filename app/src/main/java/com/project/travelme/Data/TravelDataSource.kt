@@ -20,10 +20,12 @@ class TravelDataSource : TravelDAO {
         val user = FirebaseAuth.getInstance().currentUser
         val ref = database.getReference("Travels")
         val ref2 = user?.let { ref.child(it.uid) }
+        
 
         ref2?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 cildCount= snapshot.childrenCount.toInt()
+
             }
 
             override fun onCancelled(error: DatabaseError) {
