@@ -1284,6 +1284,7 @@
     <string name="order_status">Order Status</string>
     <string name="service_provider">Service Provider</string>
     <string name="destinations">Destinations</string>
+    <string name="bRemove">מחק</string>
 
 
 </resources>

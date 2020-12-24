@@ -21,7 +21,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

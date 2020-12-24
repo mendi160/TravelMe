@@ -11,20 +11,30 @@ import com.project.travelme.Entities.Travel
 class TravelDataSource : TravelDAO {
     private val database = FirebaseDatabase.getInstance()
     var isSuccessLiveData = MutableLiveData<Boolean>()
-    var cildCount :Int =0
+    var requestCount: Int = 0
+    lateinit var key: String
+    val countRef = database.getReference("counter");
 
+    constructor() {
+        countRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                requestCount = snapshot.child("val").value.toString().toInt()
 
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
 
     override fun insertTravel(travel: Travel) {
-
+        while (requestCount==0);
         val user = FirebaseAuth.getInstance().currentUser
         val ref = database.getReference("Travels")
         val ref2 = user?.let { ref.child(it.uid) }
-        
-
         ref2?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                cildCount= snapshot.childrenCount.toInt()
+                //   requestCount = snapshot.children.to
 
             }
 
@@ -32,12 +42,18 @@ class TravelDataSource : TravelDAO {
                 TODO("Not yet implemented")
             }
         })
-        val ref3= ref2?.child("Request_$cildCount")
+        val ref3 = ref2?.child("Request_$requestCount")
+        if (ref3 != null) {
+            key = ref3.push().key.toString()
+        };
+        travel.id = key;
         ref3?.setValue(travel)?.addOnSuccessListener {
             isSuccessLiveData.postValue(true)
+            countRef.child("val").setValue(requestCount + 1)
 
         }?.addOnFailureListener {
-            isSuccessLiveData.postValue(false) }
+            isSuccessLiveData.postValue(false)
+        }
     }
 
 
@@ -45,14 +61,14 @@ class TravelDataSource : TravelDAO {
         return isSuccessLiveData
     }
 
-    fun getTravelofUser(string: String) {
+    fun getTravelOfUser(string: String) {
         val ref = database.getReference("Travels")
         val user = FirebaseAuth.getInstance().currentUser
         val ref2 = user?.let { ref.child(it.uid) }
         if (ref2 != null) {
             ref2.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    cildCount= snapshot.childrenCount.toInt()
+                    requestCount = snapshot.childrenCount.toInt()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
