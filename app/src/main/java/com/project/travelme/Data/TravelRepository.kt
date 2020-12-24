@@ -23,7 +23,9 @@ class TravelRepository {
 
         fun insert(context: Context, item: Travel) {
             database = initializeDB(context)
-            dao.insertTravel(item)
+            Thread() {
+                dao.insertTravel(item)
+            }.start();
 
         }
     }

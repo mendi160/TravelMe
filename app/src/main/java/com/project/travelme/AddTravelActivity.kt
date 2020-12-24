@@ -202,7 +202,7 @@ class AddTravelActivity : AppCompatActivity() {
             }
 
             val travel = Travel(
-                1,
+                "1",
                 name,
                 phoneNumber.toInt(),
                 email,
@@ -220,7 +220,7 @@ class AddTravelActivity : AppCompatActivity() {
             }
         } else {
             val travel = Travel(
-                1,
+                "1",
                 "name",
                 1233,
                 "sss",
