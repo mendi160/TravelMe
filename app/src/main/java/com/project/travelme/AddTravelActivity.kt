@@ -42,7 +42,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
-    private var debug = true
+    private var debug = false
 
     private var isSourceAddress by Delegates.notNull<Boolean>()
 
@@ -108,7 +108,7 @@ class AddTravelActivity : AppCompatActivity() {
         tvReturnDate =
             findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(R.id.dateTextView)
 
-        addressMutableList = mutableListOf("Shuky")
+        addressMutableList = mutableListOf()
         address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
         viewModel.getIsSuccess().observe(this, {
             if (it)
