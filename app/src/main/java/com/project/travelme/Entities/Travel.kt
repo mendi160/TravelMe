@@ -60,7 +60,7 @@ class Travel {
             returnDate: String,
             status: Status,
             @TypeConverters(CompanyConverter::class)
-            serviceProvider: Map<String, Boolean> = mapOf(" " to false),
+            serviceProvider: Map<String, Boolean> = mapOf("" to false),
     ) {
         this.id = id
         this.name = name
