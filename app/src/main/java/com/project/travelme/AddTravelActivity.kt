@@ -16,12 +16,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.project.travelme.Entities.Travel
 import com.project.travelme.R.id.passengers
 import com.project.travelme.Ui.TravelViewModel
 import com.project.travelme.Utils.Converters
 import com.project.travelme.Utils.Enums.Status
 import com.project.travelme.Utils.Util
+import com.project.travelmedrivers.entities.Travel
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.properties.Delegates
@@ -58,7 +58,7 @@ class AddTravelActivity : AppCompatActivity() {
         }
         //initialize buttons for pick date
         bDeparture =
-                findViewById<LinearLayout>(R.id.departureDate).findViewById<Button>(R.id.pickDateBtn)
+            findViewById<LinearLayout>(R.id.departureDate).findViewById<Button>(R.id.pickDateBtn)
         bReturn = findViewById<LinearLayout>(R.id.returnDate).findViewById<Button>(R.id.pickDateBtn)
         bReturn.isEnabled = false
         bDeparture.setOnClickListener {
@@ -68,9 +68,9 @@ class AddTravelActivity : AppCompatActivity() {
         bDeparture.text = "Depart Date"
         bReturn.setOnClickListener {
             pickDate(
-                    findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(
-                            R.id.dateTextView
-                    )
+                findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(
+                    R.id.dateTextView
+                )
             )
         }
         bReturn.text = "Return Date"
@@ -85,7 +85,7 @@ class AddTravelActivity : AppCompatActivity() {
         bDestination.setOnClickListener {
             isSourceAddress = false
             startActivity(
-                    Intent(this, DestinationAddressActivity::class.java)
+                Intent(this, DestinationAddressActivity::class.java)
             )
         }
         bSave = findViewById<Button>(R.id.bSave)
@@ -102,9 +102,9 @@ class AddTravelActivity : AppCompatActivity() {
             }
         }
         tvDepartureDate =
-                findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView)
+            findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView)
         tvReturnDate =
-                findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(R.id.dateTextView)
+            findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(R.id.dateTextView)
 
         addressMutableList = mutableListOf()
         address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
@@ -127,7 +127,7 @@ class AddTravelActivity : AppCompatActivity() {
         if (etPassengers.text.toString() == "")
             return
         etPassengers.setText(
-                (etPassengers.text.toString().toInt() - 1).toString()
+            (etPassengers.text.toString().toInt() - 1).toString()
         )
     }
 
@@ -137,7 +137,7 @@ class AddTravelActivity : AppCompatActivity() {
             etPassengers.setText("1")
         else {
             etPassengers.setText(
-                    (etPassengers.text.toString().toInt() + 1).toString()
+                (etPassengers.text.toString().toInt() + 1).toString()
             )
         }
     }
@@ -150,17 +150,17 @@ class AddTravelActivity : AppCompatActivity() {
         val departureDate = tvDepartureDate.text.toString()
         val returnDate = tvReturnDate.text.toString()
         val dpd = DatePickerDialog(
-                this,
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    // Display Selected date in textbox
-                    textV.text = "" + dayOfMonth + "," + (monthOfYear.toInt() + 1) + "," + year
-                    bReturn.isEnabled = true
-                    if (Util.compareStringsOfDate(textV.text.toString(), returnDate))
-                        tvReturnDate.text = tvDepartureDate.text.toString()
-                },
-                year,
-                month,
-                day
+            this,
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                // Display Selected date in textbox
+                textV.text = "" + dayOfMonth + "," + (monthOfYear.toInt() + 1) + "," + year
+                bReturn.isEnabled = true
+                if (Util.compareStringsOfDate(textV.text.toString(), returnDate))
+                    tvReturnDate.text = tvDepartureDate.text.toString()
+            },
+            year,
+            month,
+            day
         )
         if (tvDepartureDate == textV)
             dpd.datePicker.minDate = System.currentTimeMillis() - 1000
@@ -180,56 +180,56 @@ class AddTravelActivity : AppCompatActivity() {
             val phoneNumber = findViewById<TextInputEditText>(R.id.etPhone).text.toString()
             val passengers = etPassengers.text.toString()
             val status: Status =
-                    Converters.fromStringToStatus(findViewById<TextInputEditText>(R.id.etStatus1).text.toString())!!
+                Converters.fromStringToStatus(findViewById<TextInputEditText>(R.id.etStatus1).text.toString())!!
             val list = listOf<String>(
-                    name,
-                    email,
-                    departureDate,
-                    returnDate,
-                    sourceAddress,
-                    destAddress[0],
-                    phoneNumber,
-                    passengers,
-                    status.name
+                name,
+                email,
+                departureDate,
+                returnDate,
+                sourceAddress,
+                destAddress[0],
+                phoneNumber,
+                passengers,
+                status.name
             )
             if (!list.all { x -> x != "" } || !Util.isValidEmail(email)) {
                 MaterialAlertDialogBuilder(this).setTitle("Error")
-                        .setMessage("Please make sure everything is correct")
-                        .setNeutralButton("OK") { which, _ -> which.dismiss() }.show()
+                    .setMessage("Please make sure everything is correct")
+                    .setNeutralButton("OK") { which, _ -> which.dismiss() }.show()
                 return
             }
 
-            val travel = Travel(
-                    "1",
-                    name,
-                    phoneNumber.toInt(),
-                    email,
-                    sourceAddress,
-                    destAddress,
-                    passengers.toInt(),
-                    departureDate,
-                    returnDate,
-                    status
-            )
+            val travel = Travel()
+            travel.id = "1"
+            travel.name = name
+            travel.phoneNumber = phoneNumber.toInt()
+            travel.email = email
+            travel.sourceAdders = sourceAddress
+            travel.destinationAddress = destAddress
+            travel.passengers = passengers.toInt()
+            travel.departureDate = departureDate
+            travel.returnDate = returnDate
+            travel.status = status
+
+
             try {
                 viewModel.insertTravel(context, travel)
             } catch (e: Exception) {
                 print(e.message)
             }
         } else {
-            val travel = Travel(
-                    "1",
-                    "name",
-                    1233,
-                    "sss",
-                    "Address(jhjk, daas, 212)",
-                    mutableListOf("(jhjk, daas, 212)"),
-                    passengers.toInt(),
-                    "baabaa",
-                    "babaabab",
-                    Status.SENT,
-                    hashMapOf("Dan@gmail@com" to false)
-            )
+            val travel = Travel()
+            travel.id = "1"
+            travel.name = "name"
+            travel.phoneNumber = 123456789
+            travel.email = "email@email.com"
+            travel.sourceAdders = "source Address"
+            travel.destinationAddress = mutableListOf<String>("destinations1", "destination2")
+            travel.passengers = 10
+            travel.departureDate = "departureDate"
+            travel.returnDate = "returnDate"
+            travel.status = Status.SENT
+
             try {
                 viewModel.insertTravel(context, travel)
             } catch (e: Exception) {

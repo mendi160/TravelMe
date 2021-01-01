@@ -3,39 +3,39 @@ package com.project.travelme
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.provider.VoicemailContract
-import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.firebase.auth.FirebaseAuth
-import com.project.travelme.Utils.Enums.Status
+import com.project.travelme.Ui.TravelViewModel
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
+       lateinit var    viewModel : ViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var button: Button = findViewById<Button>(R.id.addButton)
-
-
-
-
         button.setOnClickListener {
-            createSignInIntent()
 
-
+            val i = Intent(this@MainActivity, AddTravelActivity::class.java)
+             startActivity(i)
         }
+        viewModel =ViewModelProvider(this).get(TravelViewModel::class.java)
+        createSignInIntent()
+
 
     }
+
+
+
 
     fun createSignInIntent() {
         // [START auth_fui_create_intent]
@@ -73,8 +73,8 @@ class MainActivity : AppCompatActivity() {
             }
             if (resultCode == Activity.RESULT_OK) {
 
-                val i = Intent(this@MainActivity, AddTravelActivity::class.java)
-                startActivity(i)
+                //val i = Intent(this@MainActivity, AddTravelActivity::class.java)
+               // startActivity(i)
 
 
                 // ...
@@ -85,6 +85,13 @@ class MainActivity : AppCompatActivity() {
                 // ...
             }
         }
+    }
+
+    fun myRequestsFragment(view: View) {
+
+
+        val i = Intent(this@MainActivity, Requests::class.java)
+         startActivity(i)
     }
     // [END auth_fui_result]
 }

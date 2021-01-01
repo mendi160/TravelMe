@@ -1,26 +1,56 @@
 package com.project.travelme.Data
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.project.travelme.Entities.Travel
+import com.google.firebase.database.*
+import com.project.travelmedrivers.entities.Travel
 
 class TravelDataSource : TravelDAO {
     private val database = FirebaseDatabase.getInstance()
     var isSuccessLiveData = MutableLiveData<Boolean>()
+    lateinit var travelsList: MutableLiveData<MutableList<Travel>>
     var requestCount: Int = 0
+
+    lateinit  var uid: String
     lateinit var key: String
+    var notifyToTravel: TravelDAO.NotifyToTravelListListener? = null
+    var travelRef: DatabaseReference
     val countRef = database.getReference("counter");
 
-    constructor() {
+    constructor(l: TravelDAO.NotifyToTravelListListener) {
+        notifyToTravel = l
+        travelsList = MutableLiveData(mutableListOf<Travel>())
+         uid = FirebaseAuth.getInstance().uid.toString()
+        travelRef = database.getReference("Travels/$uid")
+        travelRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                travelsList.value?.clear()
+                if (dataSnapshot.exists()) {
+                    for (travels in dataSnapshot.children) {
+
+                        val travel = travels.getValue(Travel::class.java)
+                        if (travel != null) {
+                            travelsList.value?.add(travel)
+
+                        }
+                    }
+                    Log.i("Change", "Data changed")
+                    notifyToTravel?.onTravelsChanged()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        }
+        )
         countRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 requestCount = snapshot.child("val").value.toString().toInt()
 
             }
+
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -28,7 +58,7 @@ class TravelDataSource : TravelDAO {
     }
 
     override fun insertTravel(travel: Travel) {
-        while (requestCount==0);
+        while (requestCount == 0);
         val user = FirebaseAuth.getInstance().currentUser
         val ref = database.getReference("Travels")
         val ref2 = user?.let { ref.child(it.uid) }
@@ -56,9 +86,17 @@ class TravelDataSource : TravelDAO {
         }
     }
 
+    override fun getAllTravels(): MutableLiveData<MutableList<Travel>> {
+        return travelsList
+    }
+
 
     override fun isSuccess(): MutableLiveData<Boolean> {
         return isSuccessLiveData
+    }
+
+    override fun setNotifyToTravelListListener(l: TravelDAO.NotifyToTravelListListener) {
+        notifyToTravel = l
     }
 
     fun getTravelOfUser(string: String) {

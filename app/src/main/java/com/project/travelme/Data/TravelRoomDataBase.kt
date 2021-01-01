@@ -1,12 +1,8 @@
 package com.project.travelme.Data
 
 import android.content.Context
-import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.project.travelme.Entities.Travel
-import com.project.travelme.Utils.AddressConverter
 
 
 //@Database(entities = [Travel::class], version = 1, exportSchema = false)

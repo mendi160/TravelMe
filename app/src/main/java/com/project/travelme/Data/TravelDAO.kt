@@ -1,16 +1,18 @@
 package com.project.travelme.Data
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.*
-import com.project.travelme.Entities.Travel
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.project.travelmedrivers.entities.Travel
 
 @Dao
 interface TravelDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTravel(travel: Travel)
 
-//    @Delete
+    //    @Delete
 //    fun deleteTravel(num: Int)
 //
 //    @Update
@@ -19,12 +21,17 @@ interface TravelDAO {
 //    @Query("SELECT * FROM travel_table WHERE :num == id")
 //    fun getTravel(num: Int): LiveData<Travel>
 //
-//    @Query("DELETE FROM travel_table")
+    // @Query("DELETE FROM travel_table")
 //    fun deleteAllTravels()
 //
-//    @Query("SELECT * FROM travel_table")
-//    fun getAllTravels(): LiveData<List<Travel>>
+    @Query("SELECT * FROM travels")
+    fun getAllTravels(): MutableLiveData<MutableList<Travel>>
 
     fun isSuccess(): MutableLiveData<Boolean>
+    fun setNotifyToTravelListListener(notifyToTravelListListener: NotifyToTravelListListener)
+
+    interface NotifyToTravelListListener {
+        fun onTravelsChanged()
+    }
 
 }
