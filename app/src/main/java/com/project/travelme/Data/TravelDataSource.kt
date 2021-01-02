@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.project.travelmedrivers.entities.Travel
 
-class TravelDataSource private constructor() : TravelDAO {
+class TravelDataSource private constructor() :  TravelDAO {
     private object HOLDER {
         val INSTANCE = TravelDataSource()
     }
@@ -19,7 +19,6 @@ class TravelDataSource private constructor() : TravelDAO {
     var isSuccessLiveData = MutableLiveData<Boolean>()
     var travelsList = MutableLiveData(mutableListOf<Travel>())
     var requestCount: Int = 0
-
     private var uid: String = FirebaseAuth.getInstance().uid.toString()
     lateinit var key: String
     var notifyToTravel: TravelDAO.NotifyToTravelListListener? = null

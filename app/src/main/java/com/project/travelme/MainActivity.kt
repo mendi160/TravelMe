@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -20,23 +19,21 @@ class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
 
     companion object {
-        lateinit var viewModel: ViewModel
+        lateinit var viewModel: TravelViewModel
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
-        if (FirebaseAuth.getInstance().currentUser != null)
-            return
-        createSignInIntent()
         var button: Button = findViewById<Button>(R.id.addButton)
-
         button.setOnClickListener {
-
             val i = Intent(this@MainActivity, AddTravelActivity::class.java)
             startActivity(i)
         }
+        if (FirebaseAuth.getInstance().currentUser != null)
+            return
+        createSignInIntent()
     }
 
 
@@ -91,8 +88,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun myRequestsActivity(view: View) {
-        val i = Intent(this@MainActivity, RequestsActivity::class.java)/*.putExtra("travelViewModel",
-            viewModel as Serializable) */
+        val i = Intent(
+            this@MainActivity,
+            RequestsActivity::class.java
+        )/*.putExtra("travelViewModel", viewModel as Serializable )*/
         startActivity(i)
     }
     // [END auth_fui_result]
