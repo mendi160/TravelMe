@@ -18,23 +18,26 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
-       lateinit var    viewModel : ViewModel
+
+    companion object {
+        lateinit var viewModel: ViewModel
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
+        if (FirebaseAuth.getInstance().currentUser != null)
+            return
+        createSignInIntent()
         var button: Button = findViewById<Button>(R.id.addButton)
+
         button.setOnClickListener {
 
             val i = Intent(this@MainActivity, AddTravelActivity::class.java)
-             startActivity(i)
+            startActivity(i)
         }
-        viewModel =ViewModelProvider(this).get(TravelViewModel::class.java)
-        createSignInIntent()
-
-
     }
-
-
 
 
     fun createSignInIntent() {
@@ -74,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
 
                 //val i = Intent(this@MainActivity, AddTravelActivity::class.java)
-               // startActivity(i)
+                // startActivity(i)
 
 
                 // ...
@@ -87,11 +90,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun myRequestsFragment(view: View) {
-
-
-        val i = Intent(this@MainActivity, Requests::class.java)
-         startActivity(i)
+    fun myRequestsActivity(view: View) {
+        val i = Intent(this@MainActivity, RequestsActivity::class.java)/*.putExtra("travelViewModel",
+            viewModel as Serializable) */
+        startActivity(i)
     }
     // [END auth_fui_result]
 }

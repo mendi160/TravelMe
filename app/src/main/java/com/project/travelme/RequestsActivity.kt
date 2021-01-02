@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.travelme.Ui.TravelViewModel
 
-class Requests : AppCompatActivity() {
+class RequestsActivity : AppCompatActivity() {
     lateinit var model: TravelViewModel
     lateinit var recyclerView: RecyclerView
 
@@ -21,14 +21,11 @@ class Requests : AppCompatActivity() {
         recyclerView.apply {
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(applicationContext)
-
         }
         model.getAllTravels().observe(this, {
             if (it != null)
                 recyclerView.adapter = TravelRecyclerViewAdapter(it)
         })
-
-
     }
 }
 

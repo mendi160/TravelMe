@@ -6,22 +6,27 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.project.travelmedrivers.entities.Travel
 
-class TravelDataSource : TravelDAO {
+class TravelDataSource private constructor() : TravelDAO {
+    private object HOLDER {
+        val INSTANCE = TravelDataSource()
+    }
+
+    companion object {
+        val instance: TravelDataSource by lazy { HOLDER.INSTANCE }
+    }
+
     private val database = FirebaseDatabase.getInstance()
     var isSuccessLiveData = MutableLiveData<Boolean>()
-    lateinit var travelsList: MutableLiveData<MutableList<Travel>>
+    var travelsList = MutableLiveData(mutableListOf<Travel>())
     var requestCount: Int = 0
 
-    lateinit  var uid: String
+    private var uid: String = FirebaseAuth.getInstance().uid.toString()
     lateinit var key: String
     var notifyToTravel: TravelDAO.NotifyToTravelListListener? = null
-    var travelRef: DatabaseReference
-    val countRef = database.getReference("counter");
+    private var travelRef: DatabaseReference
+    private val countRef = database.getReference("counter");
 
-    constructor(l: TravelDAO.NotifyToTravelListListener) {
-        notifyToTravel = l
-        travelsList = MutableLiveData(mutableListOf<Travel>())
-         uid = FirebaseAuth.getInstance().uid.toString()
+    init {
         travelRef = database.getReference("Travels/$uid")
         travelRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -62,21 +67,11 @@ class TravelDataSource : TravelDAO {
         val user = FirebaseAuth.getInstance().currentUser
         val ref = database.getReference("Travels")
         val ref2 = user?.let { ref.child(it.uid) }
-        ref2?.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                //   requestCount = snapshot.children.to
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
         val ref3 = ref2?.child("Request_$requestCount")
         if (ref3 != null) {
             key = ref3.push().key.toString()
+            travel.id = key;
         };
-        travel.id = key;
         ref3?.setValue(travel)?.addOnSuccessListener {
             isSuccessLiveData.postValue(true)
             countRef.child("val").setValue(requestCount + 1)
@@ -90,6 +85,9 @@ class TravelDataSource : TravelDAO {
         return travelsList
     }
 
+    override fun updateTravel(travel: Travel) {
+        TODO("Not yet implemented")
+    }
 
     override fun isSuccess(): MutableLiveData<Boolean> {
         return isSuccessLiveData
@@ -102,19 +100,15 @@ class TravelDataSource : TravelDAO {
     fun getTravelOfUser(string: String) {
         val ref = database.getReference("Travels")
         val user = FirebaseAuth.getInstance().currentUser
-        val ref2 = user?.let { ref.child(it.uid) }
-        if (ref2 != null) {
-            ref2.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    requestCount = snapshot.childrenCount.toInt()
-                }
+        user?.let { ref.child(it.uid) }?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                requestCount = snapshot.childrenCount.toInt()
+            }
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
-
-        }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
 
 
     }
@@ -124,9 +118,7 @@ class TravelDataSource : TravelDAO {
 //        TODO("Not yet implemented")
 //    }
 //
-//    override fun updateTravel(travel: Travel) {
-//        TODO("Not yet implemented")
-//    }
+
 //
 //    override fun getTravel(num: Int): LiveData<Travel> {
 //        TODO("Not yet implemented")
@@ -134,14 +126,6 @@ class TravelDataSource : TravelDAO {
 //
 //    override fun deleteAllTravels() {
 //        TODO("Not yet implemented")
-//    }
-//
-//    override fun getAllTravels(): LiveData<List<Travel>> {
-//        TODO("Not yet implemented")
-//    }
-
-//    override fun isSuccess(): MutableLiveData<Boolean> {
-//        return isSuccessLiveData
 //    }
 
 

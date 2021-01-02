@@ -9,7 +9,6 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI
 import com.project.travelme.Utils.Enums.Status
-import com.project.travelme.dummy.DummyContent.DummyItem
 import com.project.travelmedrivers.entities.Travel
 
 
@@ -19,7 +18,7 @@ class TravelRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_my_requests, parent, false)
+            .inflate(R.layout.travel_recyclerview, parent, false)
         return ViewHolder(view)
     }
 
@@ -34,13 +33,10 @@ class TravelRecyclerViewAdapter(
         source.text = travelList[listPosition].sourceAdders
         destination.text = travelList[listPosition].destinationAddress[0]
         date.text = travelList[listPosition].departureDate
-        val list = mutableListOf("Select")
-        travelList[listPosition].serviceProvider.keys.toList()
-            .forEach { it -> if (it != "") list.add(it) }
         company.adapter = ArrayAdapter<String>(
             AuthUI.getApplicationContext(),
             android.R.layout.simple_list_item_1,
-            list
+            travelList[listPosition].serviceProvider.keys.toMutableList()
         )
 
     }

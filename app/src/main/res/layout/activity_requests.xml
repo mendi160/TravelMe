@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Requests">
+    tools:context=".RequestsActivity">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
         android:name="com.project.travelme.my_requests"
@@ -14,6 +14,6 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".my_requests"
-        tools:listitem="@layout/fragment_my_requests" />
+        tools:listitem="@layout/travel_recyclerview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
