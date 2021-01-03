@@ -27,7 +27,6 @@ class TravelRecyclerViewAdapter(
         val source = holder.source
         val destination = holder.destination
         val date = holder.date
-        //val confirm = holder.
         val company = holder.company
         holder.travel = travelList[listPosition]
         source.text = travelList[listPosition].sourceAdders

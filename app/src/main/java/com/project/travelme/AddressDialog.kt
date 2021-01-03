@@ -21,7 +21,7 @@ class AddressDialog : AppCompatActivity() {
         isSourceAddress = intent.getBooleanExtra("bool", false)
         setContentView(R.layout.address_form)
         bSave = findViewById<Button>(R.id.bSaveAddress)
-         val api = "AIzaSyBUPxQMO2iI0DS_WTeetlcND9mpWaUCyyY"
+        val api = "AIzaSyBUPxQMO2iI0DS_WTeetlcND9mpWaUCyyY"
         Places.initialize(applicationContext, api)
 
         // Initialize the AutocompleteSupportFragment.

@@ -44,7 +44,7 @@ class Travel() {
     var status = Status.SENT
         set
         get() = field
-    var serviceProvider = mapOf("Select" to false)
+    var serviceProvider = mutableMapOf("Select" to false)
         set
         get() = field
     //    constructor(
@@ -76,7 +76,7 @@ class Travel() {
 
     //
     @Exclude
-    fun toMap(): Map<String, Any>? {
+    fun toMap(): MutableMap<String, Any>? {
         val result: HashMap<String, Any> = HashMap()
         result["name"] = name
         result["phoneNumber"] = phoneNumber
@@ -92,11 +92,11 @@ class Travel() {
 
 class CompanyConverter {
     @TypeConverter
-    fun fromString(value: String?): HashMap<String, Boolean>? {
+    fun fromString(value: String?): MutableMap<String, Boolean>? {
         if (value == null || value.isEmpty()) return null
         val mapString =
             value.split(",").toTypedArray() //split map into array of (string,boolean) strings
-        val hashMap: HashMap<String, Boolean> = HashMap()
+        val hashMap: MutableMap<String, Boolean> = HashMap()
         for (s1 in mapString)  //for all (string,boolean) in the map string
         {
             if (s1.isNotEmpty()) { //is empty maybe will needed because the last char in the string is ","
@@ -110,7 +110,7 @@ class CompanyConverter {
     }
 
     @TypeConverter
-    fun asString(map: HashMap<String?, Boolean?>?): String? {
+    fun asString(map: MutableMap<String?, Boolean?>?): String? {
         if (map == null) return null
         val mapString = StringBuilder()
         for ((key, value) in map.entries) mapString.append(
