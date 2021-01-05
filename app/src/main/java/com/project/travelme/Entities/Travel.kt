@@ -44,7 +44,7 @@ class Travel() {
     var status = Status.SENT
         set
         get() = field
-    var serviceProvider = mutableMapOf("Select" to false)
+    var serviceProvider = mutableMapOf<String, Boolean>("Select" to false)
         set
         get() = field
     //    constructor(

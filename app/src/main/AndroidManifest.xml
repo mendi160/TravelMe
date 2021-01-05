@@ -15,7 +15,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".RequestsActivity"></activity>
-        <activity android:name=".Utils.ListViewActivity" />
         <activity
             android:name=".DestinationAddressActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
