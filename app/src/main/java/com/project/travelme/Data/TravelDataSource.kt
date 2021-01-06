@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.project.travelmedrivers.entities.Travel
 
-class TravelDataSource private constructor() :  TravelDAO {
+class TravelDataSource private constructor() : TravelDAO {
     private object HOLDER {
         val INSTANCE = TravelDataSource()
     }
@@ -16,6 +16,7 @@ class TravelDataSource private constructor() :  TravelDAO {
     }
 
     private val database = FirebaseDatabase.getInstance()
+    private val referenceMap = mutableMapOf<String, DatabaseReference>()
     var isSuccessLiveData = MutableLiveData<Boolean>()
     var travelsList = MutableLiveData(mutableListOf<Travel>())
     var requestCount: Int = 0
@@ -32,9 +33,9 @@ class TravelDataSource private constructor() :  TravelDAO {
                 travelsList.value?.clear()
                 if (dataSnapshot.exists()) {
                     for (travels in dataSnapshot.children) {
-
                         val travel = travels.getValue(Travel::class.java)
                         if (travel != null) {
+                            referenceMap[travel.id] = travels.ref
                             travelsList.value?.add(travel)
 
                         }
@@ -85,7 +86,9 @@ class TravelDataSource private constructor() :  TravelDAO {
     }
 
     override fun updateTravel(travel: Travel) {
-        TODO("Not yet implemented")
+        referenceMap[travel.id]!!.setValue(travel)
+            .addOnSuccessListener { isSuccessLiveData.postValue(true) }
+            .addOnFailureListener { isSuccessLiveData.postValue(false) }
     }
 
     override fun isSuccess(): MutableLiveData<Boolean> {

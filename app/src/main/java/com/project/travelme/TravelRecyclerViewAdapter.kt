@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI
 import com.project.travelme.Utils.Enums.Status
 import com.project.travelmedrivers.entities.Travel
+import kotlin.collections.set
 
 
 class TravelRecyclerViewAdapter(
@@ -47,9 +48,9 @@ class TravelRecyclerViewAdapter(
         var destination: TextView = itemView.findViewById(R.id.tvDestination) as TextView
         var date: TextView = itemView.findViewById(R.id.tvDate) as TextView
         var bConfirm: Button = itemView.findViewById(R.id.bConfirm)
-        var bRunning: Button
-        var bFinished: Button
-        var company: Spinner
+        var bRunning: Button = itemView.findViewById(R.id.bRunning)
+        var bFinished: Button = itemView.findViewById(R.id.bFinished)
+        var company: Spinner = itemView.findViewById(R.id.sCompany)
         lateinit var travel: Travel
 
         init {
@@ -57,38 +58,51 @@ class TravelRecyclerViewAdapter(
             bConfirm.setOnClickListener {
                 this@ViewHolder.travel
                 travel.status = Status.RECEIVED
+                travel.serviceProvider[company.selectedItem.toString()] = true
+                MainActivity.viewModel.updateTravel(travel)
             }
             bRunning = itemView.findViewById(R.id.bRunning)
             bRunning.setOnClickListener {
                 this@ViewHolder.travel
                 travel.status = Status.RUNNING
+                MainActivity.viewModel.updateTravel(travel)
             }
             bFinished = itemView.findViewById(R.id.bFinished)
             bFinished.setOnClickListener {
                 this@ViewHolder.travel
                 travel.status = Status.CLOSED
+                MainActivity.viewModel.updateTravel(travel)
             }
-            company = itemView.findViewById(R.id.sCompany) as Spinner
             company.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                @SuppressLint("ResourceType")
                 override fun onItemSelected(
                     parentView: AdapterView<*>?,
                     selectedItemView: View,
                     position: Int,
                     id: Long
                 ) {
-                    if (position == 0) {
+
+                    var operatingCompanyItem = selectedItemView as TextView
+                    if (this@ViewHolder.travel.serviceProvider.containsValue(true)) {
+                        operatingCompanyItem.text =
+                            this@ViewHolder.travel.serviceProvider.filterValues { it -> it }.keys.elementAt(
+                                0
+                            )
+                        this@ViewHolder.company.isEnabled = false
+                    }
+                    if (operatingCompanyItem.text == "Select") {
                         bFinished.isEnabled = false
                         bRunning.isEnabled = false
                         bConfirm.isEnabled = false
-                        return
+                    } else {
+                        this@ViewHolder.travel
+                        travel.serviceProvider[parentView?.getItemIdAtPosition(position)
+                            .toString()] to true
+                        bFinished.isEnabled = true
+                        bRunning.isEnabled = true
+                        bConfirm.isEnabled = true
+                        Log.i("a", "a")
                     }
-                    this@ViewHolder.travel
-                    travel.serviceProvider[parentView?.getItemIdAtPosition(position)
-                        .toString()] to true
-                    bFinished.isEnabled = true
-                    bRunning.isEnabled = true
-                    bConfirm.isEnabled = true
-                    Log.i("a", "a")
                 }
 
                 override fun onNothingSelected(parentView: AdapterView<*>?) {

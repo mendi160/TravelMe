@@ -35,6 +35,8 @@ class TravelViewModel() : ViewModel() {
 
     fun getAllTravels(): MutableLiveData<List<Travel>> {
         return travelList
-
+    }
+    fun updateTravel(travel: Travel){
+        repo.updateTravel(travel)
     }
 }

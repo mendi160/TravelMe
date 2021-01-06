@@ -38,4 +38,8 @@ class TravelRepository private constructor() {
             dao.insertTravel(item)
         }.start();
     }
+
+    fun updateTravel(travel: Travel) {
+        dao.updateTravel(travel)
+    }
 }
