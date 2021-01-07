@@ -82,7 +82,7 @@ class TravelRecyclerViewAdapter(
                     id: Long
                 ) {
 
-                    var operatingCompanyItem = selectedItemView as TextView
+                    val operatingCompanyItem = selectedItemView as TextView
                     if (this@ViewHolder.travel.serviceProvider.containsValue(true)) {
                         operatingCompanyItem.text =
                             this@ViewHolder.travel.serviceProvider.filterValues { it -> it }.keys.elementAt(
