@@ -29,6 +29,7 @@ class TravelRecyclerViewAdapter(
         val destination = holder.destination
         val date = holder.date
         val company = holder.company
+        val bChangeStatus = holder.bChangeStatus
         holder.travel = travelList[listPosition]
         source.text = travelList[listPosition].sourceAdders
         destination.text = travelList[listPosition].destinationAddress[0]
@@ -38,6 +39,12 @@ class TravelRecyclerViewAdapter(
             android.R.layout.simple_list_item_1,
             travelList[listPosition].serviceProvider.keys.toMutableList()
         )
+        bChangeStatus.text = when (holder.travel.status) {
+            Status.SENT -> "Confirm"
+            Status.RECEIVED -> "Running"
+            Status.RUNNING -> "Closed"
+            else -> null
+        }
 
     }
 
@@ -47,31 +54,28 @@ class TravelRecyclerViewAdapter(
         var source: TextView = itemView.findViewById(R.id.tvSource) as TextView
         var destination: TextView = itemView.findViewById(R.id.tvDestination) as TextView
         var date: TextView = itemView.findViewById(R.id.tvDate) as TextView
-        var bConfirm: Button = itemView.findViewById(R.id.bConfirm)
-        var bRunning: Button = itemView.findViewById(R.id.bRunning)
-        var bFinished: Button = itemView.findViewById(R.id.bFinished)
+        var bChangeStatus: Button = itemView.findViewById(R.id.bChangeStatus)
         var company: Spinner = itemView.findViewById(R.id.sCompany)
         lateinit var travel: Travel
 
         init {
-
-            bConfirm.setOnClickListener {
+            bChangeStatus.setOnClickListener {
                 this@ViewHolder.travel
-                travel.status = Status.RECEIVED
-                travel.serviceProvider[company.selectedItem.toString()] = true
-                MainActivity.viewModel.updateTravel(travel)
-            }
-            bRunning = itemView.findViewById(R.id.bRunning)
-            bRunning.setOnClickListener {
-                this@ViewHolder.travel
-                travel.status = Status.RUNNING
-                MainActivity.viewModel.updateTravel(travel)
-            }
-            bFinished = itemView.findViewById(R.id.bFinished)
-            bFinished.setOnClickListener {
-                this@ViewHolder.travel
-                travel.status = Status.CLOSED
-                MainActivity.viewModel.updateTravel(travel)
+                when (bChangeStatus.text) {
+                    "Confirm" -> {
+                        travel.status = Status.RECEIVED
+                        travel.serviceProvider[company.selectedItem.toString()] = true
+                        MainActivity.viewModel.updateTravel(travel)
+                    }
+                    "Running" -> {
+                        travel.status = Status.RUNNING
+                        MainActivity.viewModel.updateTravel(travel)
+                    }
+                    "Closed" -> {
+                        travel.status = Status.CLOSED
+                        MainActivity.viewModel.updateTravel(travel)
+                    }
+                }
             }
             company.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 @SuppressLint("ResourceType")
@@ -91,16 +95,12 @@ class TravelRecyclerViewAdapter(
                         this@ViewHolder.company.isEnabled = false
                     }
                     if (operatingCompanyItem.text == "Select") {
-                        bFinished.isEnabled = false
-                        bRunning.isEnabled = false
-                        bConfirm.isEnabled = false
+                        bChangeStatus.isEnabled = false
                     } else {
                         this@ViewHolder.travel
                         travel.serviceProvider[parentView?.getItemIdAtPosition(position)
                             .toString()] to true
-                        bFinished.isEnabled = true
-                        bRunning.isEnabled = true
-                        bConfirm.isEnabled = true
+                        bChangeStatus.isEnabled = true
                         Log.i("a", "a")
                     }
                 }

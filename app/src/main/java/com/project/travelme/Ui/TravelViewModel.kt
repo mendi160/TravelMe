@@ -18,7 +18,7 @@ class TravelViewModel() : ViewModel() {
     init {
         repo = TravelRepository.instance
         repo.getAllTravels()
-            .observeForever { travelList.postValue(repo.getAllTravels().value?.filter { it -> it.status != Status.CLOSED }) }
+            .observeForever { travelList.postValue(repo.getAllTravels().value?.filter { it -> it.status != Status.CLOSED && it.status != Status.PAID }) }
 
     }
 
@@ -36,7 +36,8 @@ class TravelViewModel() : ViewModel() {
     fun getAllTravels(): MutableLiveData<List<Travel>> {
         return travelList
     }
-    fun updateTravel(travel: Travel){
+
+    fun updateTravel(travel: Travel) {
         repo.updateTravel(travel)
     }
 }
