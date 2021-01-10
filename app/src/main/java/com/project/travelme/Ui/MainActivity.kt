@@ -1,4 +1,4 @@
-package com.project.travelme
+package com.project.travelme.Ui
 
 import android.app.Activity
 import android.content.Intent
@@ -11,13 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
-import com.project.travelme.Ui.TravelViewModel
+import com.project.travelme.R
 import java.util.*
 
+const val RC_SIGN_IN = 123
 
 class MainActivity : AppCompatActivity() {
-    private val RC_SIGN_IN = 123
-
     companion object {
         lateinit var viewModel: TravelViewModel
     }
@@ -31,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(this@MainActivity, AddTravelActivity::class.java)
             startActivity(i)
         }
+        startService(Intent(this, MyService::class.java))
         if (FirebaseAuth.getInstance().currentUser != null)
             return
         createSignInIntent()

@@ -1,10 +1,11 @@
-package com.project.travelme
+package com.project.travelme.Ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.project.travelme.R
 
 class DestinationAddressActivity : AppCompatActivity() {
 

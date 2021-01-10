@@ -1,10 +1,11 @@
-package com.project.travelme
+package com.project.travelme.Ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.project.travelme.R
 
 class RequestsActivity : AppCompatActivity() {
    // lateinit var model: TravelViewModel

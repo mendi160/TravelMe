@@ -14,15 +14,20 @@
         android:theme="@style/Theme.TravelMe"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".RequestsActivity"></activity>
+        <service
+            android:name=".Ui.MyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".Ui.RequestsActivity" />
         <activity
-            android:name=".DestinationAddressActivity"
+            android:name=".Ui.DestinationAddressActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
-            android:name=".AddressDialog"
+            android:name=".Ui.AddressDialog"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity android:name=".AddTravelActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Ui.AddTravelActivity" />
+        <activity android:name=".Ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -7,7 +7,7 @@
     android:background="@drawable/template"
 
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Ui.MainActivity">
 
 
     <Button

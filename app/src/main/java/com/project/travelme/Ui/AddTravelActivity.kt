@@ -1,4 +1,4 @@
-package com.project.travelme
+package com.project.travelme.Ui
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -16,8 +16,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.project.travelme.R
 import com.project.travelme.R.id.passengers
-import com.project.travelme.Ui.TravelViewModel
 import com.project.travelme.Utils.Converters
 import com.project.travelme.Utils.Enums.Status
 import com.project.travelme.Utils.Util
@@ -40,7 +40,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
-    private var debug = false
+    private var debug = true
 
     private var isSourceAddress by Delegates.notNull<Boolean>()
 
@@ -210,8 +210,6 @@ class AddTravelActivity : AppCompatActivity() {
             travel.departureDate = departureDate
             travel.returnDate = returnDate
             travel.status = status
-
-
             try {
                 viewModel.insertTravel(context, travel)
             } catch (e: Exception) {

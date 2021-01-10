@@ -1,4 +1,4 @@
-package com.project.travelme
+package com.project.travelme.Ui
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.project.travelme.R
 import kotlin.properties.Delegates
 
 class AddressDialog : AppCompatActivity() {

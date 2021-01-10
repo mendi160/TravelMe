@@ -1,4 +1,4 @@
-package com.project.travelme
+package com.project.travelme.Ui
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI
+import com.project.travelme.R
 import com.project.travelme.Utils.Enums.Status
 import com.project.travelmedrivers.entities.Travel
 import kotlin.collections.set
