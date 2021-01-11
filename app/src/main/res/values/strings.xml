@@ -1285,6 +1285,9 @@
     <string name="service_provider">Service Provider</string>
     <string name="destinations">Destinations</string>
     <string name="bRemove">מחק</string>
+    <string name="company">Company</string>
+    <string name="date">Date</string>
+    <string name="confirm_button">Confirm</string>
 
 
 </resources>
