@@ -1,6 +1,8 @@
 package com.project.travelme.Ui
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI
+import com.google.android.material.color.MaterialColors.getColor
 import com.project.travelme.R
 import com.project.travelme.Utils.Enums.Status
 import com.project.travelmedrivers.entities.Travel
@@ -24,7 +27,7 @@ class TravelRecyclerViewAdapter(
         return ViewHolder(view)
     }
 
-    @SuppressLint("RestrictedApi")
+    @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
         val source = holder.source
         val destination = holder.destination
@@ -40,6 +43,21 @@ class TravelRecyclerViewAdapter(
             android.R.layout.simple_list_item_1,
             travelList[listPosition].serviceProvider.keys.toMutableList()
         )
+      when (holder.travel.status) {
+            Status.SENT -> {
+                bChangeStatus.text = "Confirm"
+                bChangeStatus.setBackgroundColor(Color.rgb(153, 255, 153))
+            }
+            Status.RECEIVED -> {
+                bChangeStatus.text = "Running"
+                bChangeStatus.setBackgroundColor(Color.rgb(255, 255, 153))
+            }
+            Status.RUNNING -> {
+                bChangeStatus.text = "Closed"
+                bChangeStatus.setBackgroundColor(Color.rgb(255, 102, 102))
+            }
+            else -> null
+        }
         bChangeStatus.text = when (holder.travel.status) {
             Status.SENT -> "Confirm"
             Status.RECEIVED -> "Running"
