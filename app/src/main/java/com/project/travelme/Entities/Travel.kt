@@ -15,7 +15,7 @@ class Travel() {
     var name: String = ""
         set
         get() = field
-    var phoneNumber: Int = 0
+    var phoneNumber: String = ""
         set
         get() = field
     var email: String = ""

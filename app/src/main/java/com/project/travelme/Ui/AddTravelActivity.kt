@@ -202,7 +202,7 @@ class AddTravelActivity : AppCompatActivity() {
             val travel = Travel()
             travel.id = "1"
             travel.name = name
-            travel.phoneNumber = phoneNumber.toInt()
+            travel.phoneNumber = phoneNumber
             travel.email = email
             travel.sourceAdders = sourceAddress
             travel.destinationAddress = destAddress
@@ -219,7 +219,7 @@ class AddTravelActivity : AppCompatActivity() {
             val travel = Travel()
             travel.id = "1"
             travel.name = "name"
-            travel.phoneNumber = 123456789
+            travel.phoneNumber = "+972526077044 "
             travel.email = "email@email.com"
             travel.sourceAdders = "source Address"
             travel.destinationAddress = mutableListOf<String>("destinations1", "destination2")
