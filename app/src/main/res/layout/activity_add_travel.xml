@@ -42,9 +42,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:id="@+id/etPhone"
+                android:text="+972"
                 android:layout_height="match_parent"
                 android:inputType="phone"
-                android:digits="0123456789"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
