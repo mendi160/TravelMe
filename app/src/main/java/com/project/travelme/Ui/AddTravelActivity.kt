@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.properties.Delegates
 
-
 class AddTravelActivity : AppCompatActivity() {
     private lateinit var viewModel: TravelViewModel
     lateinit var context: Context
