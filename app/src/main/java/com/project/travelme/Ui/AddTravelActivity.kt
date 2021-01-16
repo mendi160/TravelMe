@@ -117,7 +117,6 @@ class AddTravelActivity : AppCompatActivity() {
     }
 
     companion object {
-
         var sourceAddress: String = ""
         lateinit var addressMutableList: MutableList<String>
         lateinit var address: ArrayAdapter<String>
