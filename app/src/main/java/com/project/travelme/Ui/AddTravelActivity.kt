@@ -40,7 +40,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
-    private var debug = true
+    private var debug = false
 
     private var isSourceAddress by Delegates.notNull<Boolean>()
 
@@ -187,12 +187,11 @@ class AddTravelActivity : AppCompatActivity() {
                 departureDate,
                 returnDate,
                 sourceAddress,
-                destAddress[0],
                 phoneNumber,
                 passengers,
                 status.name
             )
-            if (!list.all { x -> x != "" } || !Util.isValidEmail(email)) {
+            if (destAddress.size == 0 || !list.all { x -> x != "" } || !Util.isValidEmail(email)) {
                 MaterialAlertDialogBuilder(this).setTitle("Error")
                     .setMessage("Please make sure everything is correct")
                     .setNeutralButton("OK") { which, _ -> which.dismiss() }.show()
@@ -219,7 +218,7 @@ class AddTravelActivity : AppCompatActivity() {
             val travel = Travel()
             travel.id = "1"
             travel.name = "name"
-            travel.phoneNumber = "+972526077044 "
+            travel.phoneNumber = "+972526077044"
             travel.email = "email@email.com"
             travel.sourceAdders = "source Address"
             travel.destinationAddress = mutableListOf<String>("destinations1", "destination2")

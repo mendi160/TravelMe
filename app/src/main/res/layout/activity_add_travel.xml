@@ -123,9 +123,8 @@
                     android:layout_height="wrap_content"
                     android:longClickable="true"
                     android:onClick="addPassenger"
-
-
-                    app:icon="@drawable/baseline_add_24" />
+                    app:icon="@drawable/baseline_add_24"
+                   />
             </LinearLayout>
 
             <include
