@@ -40,7 +40,7 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
     private lateinit var dialog: Dialog
-    private var debug = false
+    private var debug = true
 
     private var isSourceAddress by Delegates.notNull<Boolean>()
 
