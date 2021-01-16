@@ -185,11 +185,12 @@
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="155dp"
-                android:layout_marginTop="650dp"
+                android:layout_below="@+id/etCompanyName"
+                android:layout_marginStart="150dp"
+                android:layout_marginVertical="20dp"
                 android:onClick="save"
-                android:text="@string/bSave"
-                app:icon="@drawable/baseline_save_alt_black_18dp" />
+                app:icon="@drawable/baseline_save_alt_black_18dp"
+                android:text="@string/bSave"/>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
