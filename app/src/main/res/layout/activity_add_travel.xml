@@ -10,185 +10,186 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
->       <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/your_name"
-            app:endIconMode="clear_text">
+            >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etName"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/your_name"
+                app:endIconMode="clear_text">
 
-                android:layout_height="match_parent"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/phoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
-            android:layout_marginTop="10dp"
-            app:endIconMode="clear_text"
-            android:hint="@string/yourPhoneNumber">
-
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneNumber"
                 android:layout_width="match_parent"
-                android:id="@+id/etPhone"
-                android:text="+972"
-                android:layout_height="match_parent"
-                android:inputType="phone"
-                />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_marginTop="10dp"
+                android:hint="@string/yourPhoneNumber"
+                app:endIconMode="clear_text">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="phone"
+                    android:text="+972" />
 
-        <com.google.android.material.textfield.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
 
-            android:id="@+id/tilEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/phoneNumber"
-            android:layout_marginTop="10dp"
-            app:endIconMode="clear_text"
-            android:ems="10"
-            android:hint="@string/your_email">
+            <com.google.android.material.textfield.TextInputLayout
 
-            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tilEmail"
                 android:layout_width="match_parent"
-                android:id="@+id/tietEmail"
-                android:layout_height="match_parent"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_below="@id/phoneNumber"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="@string/your_email"
+                app:endIconMode="clear_text">
 
-        <Button
-            android:id="@+id/bSourceAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/divider"
-            android:layout_alignStart="@id/bDestinationAddress"
-            android:layout_alignEnd="@id/bDestinationAddress"
-            android:layout_marginTop="10dp"
-            android:text="@string/bSourceAddress" />
-
-        <Button
-            android:id="@+id/bDestinationAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/bSourceAddress"
-            android:text="@string/bDestinationAddress" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_below="@id/tilEmail"
-            android:background="?android:attr/listDivider" />
-
-        <LinearLayout
-            android:id="@+id/addPassengers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/bDestinationAddress"
-            android:orientation="horizontal">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tietEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/minusP"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:onClick="removePassenger"
-                app:icon="@drawable/baseline_remove_black_18dp" />
-
-            <EditText
-                android:id="@+id/passengers"
+                android:id="@+id/bSourceAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="number of passengers"
-                android:inputType="number"
-                android:digits="0123456789"
-                android:textAlignment="center" />
+                android:layout_below="@+id/divider"
+                android:layout_alignStart="@id/bDestinationAddress"
+                android:layout_alignEnd="@id/bDestinationAddress"
+                android:layout_marginTop="10dp"
+                android:text="@string/bSourceAddress" />
 
             <Button
-                android:id="@+id/plusP"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="50dp"
+                android:id="@+id/bDestinationAddress"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:longClickable="true"
-                android:onClick="addPassenger"
+                android:layout_below="@+id/bSourceAddress"
+                android:text="@string/bDestinationAddress" />
 
-
-                app:icon="@drawable/baseline_add_24" />
-        </LinearLayout>
-
-        <include
-            android:id="@+id/departureDate"
-            layout="@layout/date_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/addPassengers" />
-
-        <include
-            android:id="@+id/returnDate"
-            layout="@layout/date_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/departureDate" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/returnDate"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:enabled="false"
-            android:hint="@string/order_status">
-
-            <com.google.android.material.textfield.TextInputEditText
+            <View
+                android:id="@+id/divider"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/etStatus1"
-                android:enabled="false"
-                android:inputType="textEmailAddress"
-                android:text="Sent" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="5dp"
+                android:layout_below="@id/tilEmail"
+                android:background="?android:attr/listDivider" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etCompanyName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/etStatus"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:enabled="false"
-            android:hint="@string/service_provider">
+            <LinearLayout
+                android:id="@+id/addPassengers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bDestinationAddress"
+                android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputEditText
+                <Button
+                    android:id="@+id/minusP"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="removePassenger"
+                    app:icon="@drawable/baseline_remove_black_18dp" />
+
+                <EditText
+                    android:id="@+id/passengers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789"
+                    android:hint="number of passengers"
+                    android:inputType="number"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/plusP"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:longClickable="true"
+                    android:onClick="addPassenger"
+
+
+                    app:icon="@drawable/baseline_add_24" />
+            </LinearLayout>
+
+            <include
+                android:id="@+id/departureDate"
+                layout="@layout/date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addPassengers" />
+
+            <include
+                android:id="@+id/returnDate"
+                layout="@layout/date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/departureDate" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etStatus"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/returnDate"
+                android:layout_marginTop="20dp"
+                android:ems="10"
                 android:enabled="false"
-                android:inputType="textEmailAddress"
-                android:text="NO" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/order_status">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etStatus1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:inputType="textEmailAddress"
+                    android:text="Sent" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etCompanyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etStatus"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/service_provider">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:inputType="textEmailAddress"
+                    android:text="NO" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <Button
-            android:id="@+id/bSave"
-            style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="155dp"
-            android:layout_marginTop="650dp"
-            android:text="@string/bSave"
-            android:onClick="save"
-            app:icon="@drawable/baseline_save_alt_black_18dp" />
+            <Button
+                android:id="@+id/bSave"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="155dp"
+                android:layout_marginTop="650dp"
+                android:onClick="save"
+                android:text="@string/bSave"
+                app:icon="@drawable/baseline_save_alt_black_18dp" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

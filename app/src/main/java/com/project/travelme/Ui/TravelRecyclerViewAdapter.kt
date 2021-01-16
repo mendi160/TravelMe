@@ -2,7 +2,6 @@ package com.project.travelme.Ui
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI
-import com.google.android.material.color.MaterialColors.getColor
 import com.project.travelme.R
 import com.project.travelme.Utils.Enums.Status
 import com.project.travelmedrivers.entities.Travel
@@ -38,12 +36,19 @@ class TravelRecyclerViewAdapter(
         source.text = travelList[listPosition].sourceAdders
         destination.text = travelList[listPosition].destinationAddress[0]
         date.text = travelList[listPosition].departureDate
+        val adapterList = travelList[listPosition].serviceProvider.keys.toMutableList()
+        // In the following two lines we make sure that "Select" will be the first appearance in the Spinner items
+        val selectIndex = adapterList.indexOf("Select")
+        adapterList.let {
+            it[selectIndex] = it[0]
+            it[0] = "Select"
+        }
         company.adapter = ArrayAdapter<String>(
             AuthUI.getApplicationContext(),
             android.R.layout.simple_list_item_1,
-            travelList[listPosition].serviceProvider.keys.toMutableList()
+            adapterList
         )
-      when (holder.travel.status) {
+        when (holder.travel.status) {
             Status.SENT -> {
                 bChangeStatus.text = "Confirm"
                 bChangeStatus.setBackgroundColor(Color.rgb(153, 255, 153))
@@ -115,11 +120,13 @@ class TravelRecyclerViewAdapter(
                     }
                     if (operatingCompanyItem.text == "Select") {
                         bChangeStatus.isEnabled = false
+                        bChangeStatus.setTextColor(Color.WHITE)
                     } else {
                         this@ViewHolder.travel
                         travel.serviceProvider[parentView?.getItemIdAtPosition(position)
                             .toString()] to true
                         bChangeStatus.isEnabled = true
+                        bChangeStatus.setTextColor(Color.BLACK)
                         Log.i("a", "a")
                     }
                 }
