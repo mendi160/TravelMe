@@ -42,4 +42,7 @@ class TravelRepository private constructor() {
     fun updateTravel(travel: Travel) {
         dao.updateTravel(travel)
     }
+    fun cancelTravel(travel: Travel) {
+        dao.cancelTravel(travel)
+    }
 }

@@ -30,5 +30,7 @@ interface TravelDAO {
     interface NotifyToTravelListListener {
         fun onTravelsChanged()
     }
+    @Update
+    fun cancelTravel(travel: Travel)
 
 }

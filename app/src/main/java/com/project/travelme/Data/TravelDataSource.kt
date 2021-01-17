@@ -99,6 +99,11 @@ class TravelDataSource private constructor() : TravelDAO {
         notifyToTravel = l
     }
 
+    override fun cancelTravel(travel: Travel) {
+        referenceMap[travel.id]!!.removeValue()
+        database.getReference("canceledTravels/${travel.id}").setValue(travel)
+    }
+
     fun getTravelOfUser(string: String) {
         val ref = database.getReference("Travels")
         val user = FirebaseAuth.getInstance().currentUser

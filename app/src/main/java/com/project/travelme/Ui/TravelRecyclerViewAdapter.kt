@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.travelme.R
 import com.project.travelme.Utils.Enums.Status
 import com.project.travelmedrivers.entities.Travel
@@ -32,6 +33,7 @@ class TravelRecyclerViewAdapter(
         val date = holder.date
         val company = holder.company
         val bChangeStatus = holder.bChangeStatus
+        val bDeleteTravel = holder.bDeleteTravel
         holder.travel = travelList[listPosition]
         source.text = travelList[listPosition].sourceAdders
         destination.text = travelList[listPosition].destinationAddress[0]
@@ -69,6 +71,8 @@ class TravelRecyclerViewAdapter(
             Status.RUNNING -> "Closed"
             else -> null
         }
+        if (holder.travel.status != Status.SENT)
+            bDeleteTravel.visibility = View.GONE
 
     }
 
@@ -79,6 +83,7 @@ class TravelRecyclerViewAdapter(
         var destination: TextView = itemView.findViewById(R.id.tvDestination) as TextView
         var date: TextView = itemView.findViewById(R.id.tvDate) as TextView
         var bChangeStatus: Button = itemView.findViewById(R.id.bChangeStatus)
+        val bDeleteTravel: FloatingActionButton = itemView.findViewById(R.id.bDeleteTravel)
         var company: Spinner = itemView.findViewById(R.id.sCompany)
         lateinit var travel: Travel
 
@@ -100,6 +105,11 @@ class TravelRecyclerViewAdapter(
                         MainActivity.viewModel.updateTravel(travel)
                     }
                 }
+            }
+            bDeleteTravel.setOnClickListener {
+                this@ViewHolder.travel
+                travel.status = Status.CANCELED_BY_CLIENT
+                MainActivity.viewModel.cancelTravel(travel)
             }
             company.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 @SuppressLint("ResourceType")

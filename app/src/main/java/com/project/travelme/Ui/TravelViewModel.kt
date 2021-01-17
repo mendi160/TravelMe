@@ -40,4 +40,8 @@ class TravelViewModel() : ViewModel() {
     fun updateTravel(travel: Travel) {
         repo.updateTravel(travel)
     }
+
+    fun cancelTravel(travel: Travel) {
+        repo.cancelTravel(travel)
+    }
 }
