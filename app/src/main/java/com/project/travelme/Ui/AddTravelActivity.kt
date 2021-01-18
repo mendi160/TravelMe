@@ -29,6 +29,8 @@ import kotlin.properties.Delegates
 class AddTravelActivity : AppCompatActivity() {
     private lateinit var viewModel: TravelViewModel
     lateinit var context: Context
+    private lateinit var etPhoneNumber: TextInputEditText
+    private val countryCallingCode = "+972"
     private lateinit var etPassengers: EditText
     private lateinit var tvDepartureDate: TextView
     private lateinit var tvReturnDate: TextView
@@ -88,16 +90,27 @@ class AddTravelActivity : AppCompatActivity() {
             )
         }
         bSave = findViewById<Button>(R.id.bSave)
+        etPhoneNumber = findViewById<TextInputEditText>(R.id.etPhone)
+        etPhoneNumber.doOnTextChanged { text, _, _, _ ->
+            val d = findViewById<TextInputLayout>(R.id.phoneNumber)
+            if (Util.isValidPhoneNumber(text.toString(), countryCallingCode)) {
+                d.boxStrokeColor = Color.GREEN
+                d.hintTextColor = ColorStateList.valueOf(Color.GREEN)
+            } else {
+                d.boxStrokeColor = Color.RED
+                d.hintTextColor = ColorStateList.valueOf(Color.RED)
+            }
+        }
         etEmail = findViewById<TextInputEditText>(R.id.tietEmail)
         etEmail.doOnTextChanged { text, _, _, _ ->
             val d = findViewById<TextInputLayout>(R.id.tilEmail)
 
-            if (!Util.isValidEmail(text.toString())) {
-                d.boxStrokeColor = Color.RED
-                d.hintTextColor = ColorStateList.valueOf(Color.RED)
-            } else {
+            if (Util.isValidEmail(text.toString())) {
                 d.boxStrokeColor = Color.GREEN
                 d.hintTextColor = ColorStateList.valueOf(Color.GREEN)
+            } else {
+                d.boxStrokeColor = Color.RED
+                d.hintTextColor = ColorStateList.valueOf(Color.RED)
             }
         }
         tvDepartureDate =
@@ -175,7 +188,7 @@ class AddTravelActivity : AppCompatActivity() {
             val returnDate = tvReturnDate.text.toString()
             val sourceAddress = sourceAddress
             val destAddress = addressMutableList
-            val phoneNumber = findViewById<TextInputEditText>(R.id.etPhone).text.toString()
+            val phoneNumber = etPhoneNumber.text.toString()
             val passengers = etPassengers.text.toString()
             val status: Status =
                 Converters.fromStringToStatus(findViewById<TextInputEditText>(R.id.etStatus1).text.toString())!!
@@ -189,7 +202,9 @@ class AddTravelActivity : AppCompatActivity() {
                 passengers,
                 status.name
             )
-            if (destAddress.size == 0 || !list.all { x -> x != "" } || !Util.isValidEmail(email)) {
+            if (destAddress.size == 0 || !list.all { x -> x != "" } ||
+                !Util.isValidPhoneNumber(phoneNumber, countryCallingCode)
+                || !Util.isValidEmail(email)) {
                 MaterialAlertDialogBuilder(this).setTitle("Error")
                     .setMessage("Please make sure everything is correct")
                     .setNeutralButton("OK") { which, _ -> which.dismiss() }.show()
