@@ -121,10 +121,10 @@ class AddTravelActivity : AppCompatActivity() {
         addressMutableList = mutableListOf()
         address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
         viewModel.getIsSuccess().observe(this, {
-            if (it)
-                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
-            else
-                Toast.makeText(this, "not saved", Toast.LENGTH_SHORT).show()
+            when (it) {
+                true -> Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
+                false -> Toast.makeText(this, "not saved", Toast.LENGTH_SHORT).show()
+            }
         })
     }
 
@@ -164,7 +164,7 @@ class AddTravelActivity : AppCompatActivity() {
             this,
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
-                textV.text = "" + dayOfMonth + "," + (monthOfYear.toInt() + 1) + "," + year
+                "$dayOfMonth,${monthOfYear + 1},$year".also { textV.text = it }
                 bReturn.isEnabled = true
                 if (Util.compareStringsOfDate(textV.text.toString(), returnDate))
                     tvReturnDate.text = tvDepartureDate.text.toString()
@@ -236,14 +236,16 @@ class AddTravelActivity : AppCompatActivity() {
             travel.sourceAdders = "source Address"
             travel.destinationAddress = mutableListOf<String>("destinations1", "destination2")
             travel.passengers = 10
-            travel.departureDate = "departureDate"
-            travel.returnDate = "returnDate"
+            travel.departureDate = "12,2,2021"
+            travel.returnDate = "15,2,2021"
             travel.status = Status.SENT
 
             try {
                 viewModel.insertTravel(context, travel)
             } catch (e: Exception) {
                 print(e.message)
+            } finally {
+                finish()
             }
         }
     }

@@ -37,7 +37,6 @@ class TravelDataSource private constructor() : TravelDAO {
                         if (travel != null) {
                             referenceMap[travel.id] = travels.ref
                             travelsList.value?.add(travel)
-
                         }
                     }
                     Log.i("Change", "Data changed")
@@ -87,8 +86,6 @@ class TravelDataSource private constructor() : TravelDAO {
 
     override fun updateTravel(travel: Travel) {
         referenceMap[travel.id]!!.setValue(travel)
-            .addOnSuccessListener { isSuccessLiveData.postValue(true) }
-            .addOnFailureListener { isSuccessLiveData.postValue(false) }
     }
 
     override fun isSuccess(): MutableLiveData<Boolean> {
@@ -116,24 +113,8 @@ class TravelDataSource private constructor() : TravelDAO {
                 TODO("Not yet implemented")
             }
         })
-
-
     }
 }
-//
-//    override fun deleteTravel(num: Int) {
-//        TODO("Not yet implemented")
-//    }
-//
-
-//
-//    override fun getTravel(num: Int): LiveData<Travel> {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun deleteAllTravels() {
-//        TODO("Not yet implemented")
-//    }
 
 
 
