@@ -1,6 +1,5 @@
 package com.project.travelme.Ui
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.project.travelme.R
 import java.util.*
@@ -24,18 +22,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
+
         var button: Button = findViewById<Button>(R.id.addButton)
         button.setOnClickListener {
             val i = Intent(this@MainActivity, AddTravelActivity::class.java)
             startActivity(i)
         }
-        startService(Intent(this, MyService::class.java))
-        if (FirebaseAuth.getInstance().currentUser != null)
+
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
+            startService(Intent(this, MyService::class.java))
             return
-        createSignInIntent()
+        }
+     //   createSignInIntent()
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (FirebaseAuth.getInstance().currentUser==null)
+            createSignInIntent()
+    }
 
     fun createSignInIntent() {
         // [START auth_fui_create_intent]
@@ -50,39 +56,18 @@ class MainActivity : AppCompatActivity() {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .setIsSmartLockEnabled(false).setLogo(R.drawable.klipartz)
-
                 .build(),
             RC_SIGN_IN
         )
-        // [END auth_fui_create_intent]
     }
-
-    // [START auth_fui_result]
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-
         if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
             val user = FirebaseAuth.getInstance().currentUser
-            // Successfully signed in
-
-
             if (user != null) {
-                Toast.makeText(this, user.uid.toString(), Toast.LENGTH_LONG).show()
-            }
-            if (resultCode == Activity.RESULT_OK) {
-
-                //val i = Intent(this@MainActivity, AddTravelActivity::class.java)
-                // startActivity(i)
-
-
-                // ...
-            } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
+                Toast.makeText(this, "Logged In Successfully!", Toast.LENGTH_LONG).show()
+                viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
+                startService(Intent(this, MyService::class.java))
             }
         }
     }
@@ -91,10 +76,10 @@ class MainActivity : AppCompatActivity() {
         val i = Intent(
             this@MainActivity,
             RequestsActivity::class.java
-        )/*.putExtra("travelViewModel", viewModel as Serializable )*/
+        )
         startActivity(i)
     }
-    // [END auth_fui_result]
+
 }
 
 

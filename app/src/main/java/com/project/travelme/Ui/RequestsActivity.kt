@@ -14,8 +14,6 @@ class RequestsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_requests)
-//        model = ViewModelProvider(this).get(TravelViewModel::class.java)
-//            .also { model = it }
         recyclerView = findViewById(R.id.recycleView)
         recyclerView.apply {
             itemAnimator = DefaultItemAnimator()
