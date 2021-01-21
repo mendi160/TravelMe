@@ -118,8 +118,10 @@ class AddTravelActivity : AppCompatActivity() {
         tvReturnDate =
             findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(R.id.dateTextView)
 
-        addressMutableList = mutableListOf()
-        address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
+        firebaseAddressMutableList = mutableListOf()
+        viewAddress = mutableListOf()
+        address = ArrayAdapter(this, android.R.layout.simple_list_item_1, viewAddress)
+
         viewModel.getIsSuccess().observe(this, {
             when (it) {
                 true -> Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
@@ -130,7 +132,8 @@ class AddTravelActivity : AppCompatActivity() {
 
     companion object {
         var sourceAddress: String = ""
-        lateinit var addressMutableList: MutableList<String>
+        lateinit var firebaseAddressMutableList: MutableList<String>
+        lateinit var viewAddress: MutableList<String>
         lateinit var address: ArrayAdapter<String>
     }
 
@@ -187,7 +190,7 @@ class AddTravelActivity : AppCompatActivity() {
             val departureDate = tvDepartureDate.text.toString()
             val returnDate = tvReturnDate.text.toString()
             val sourceAddress = sourceAddress
-            val destAddress = addressMutableList
+            val destAddress = firebaseAddressMutableList
             val phoneNumber = etPhoneNumber.text.toString()
             val passengers = etPassengers.text.toString()
             val status: Status =

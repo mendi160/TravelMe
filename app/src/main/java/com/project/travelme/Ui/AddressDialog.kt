@@ -58,7 +58,8 @@ class AddressDialog : AppCompatActivity() {
             if (isSourceAddress)
                 AddTravelActivity.sourceAddress = currentPlace
             else {
-                AddTravelActivity.addressMutableList.add(currentPlace)
+                AddTravelActivity.firebaseAddressMutableList.add(currentPlace)
+                AddTravelActivity.viewAddress.add(currentPlace.substringBefore("&"))
                 AddTravelActivity.address.notifyDataSetChanged()
             }
             Toast.makeText(this, "Address Saved", Toast.LENGTH_SHORT).show()
