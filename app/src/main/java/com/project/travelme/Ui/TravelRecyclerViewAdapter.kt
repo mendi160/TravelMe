@@ -35,8 +35,8 @@ class TravelRecyclerViewAdapter(
         val bChangeStatus = holder.bChangeStatus
         val bDeleteTravel = holder.bDeleteTravel
         holder.travel = travelList[listPosition]
-        source.text = travelList[listPosition].sourceAdders
-        destination.text = travelList[listPosition].destinationAddress[0]
+        source.text = travelList[listPosition].sourceAdders.substringBefore("&")
+        destination.text = travelList[listPosition].destinationAddress[0].substringBefore("&")
         date.text = travelList[listPosition].departureDate
         val adapterList = travelList[listPosition].serviceProvider.keys.toMutableList()
         // In the following two lines we make sure that "Select" will be the first appearance in the Spinner items

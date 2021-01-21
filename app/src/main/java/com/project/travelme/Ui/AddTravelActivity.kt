@@ -233,8 +233,10 @@ class AddTravelActivity : AppCompatActivity() {
             travel.name = "name"
             travel.phoneNumber = "+972526077044"
             travel.email = "email@email.com"
-            travel.sourceAdders = "source Address"
-            travel.destinationAddress = mutableListOf<String>("destinations1", "destination2")
+            travel.sourceAdders =
+                "Yehoshu'a Bin Nun St 2, Bnei Brak, Israel&lat/lng: (32.0930115,34.8232758)"
+            travel.destinationAddress =
+                mutableListOf<String>("Dalton, Israel&lat/lng: (33.016553,35.489911)")
             travel.passengers = 10
             travel.departureDate = "12,2,2021"
             travel.returnDate = "15,2,2021"

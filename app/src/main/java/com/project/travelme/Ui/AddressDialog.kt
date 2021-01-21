@@ -44,8 +44,7 @@ class AddressDialog : AppCompatActivity() {
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                currentPlace = place.address.toString()+"&"+place.latLng.toString()
-
+                currentPlace = place.address.toString() + "&" + place.latLng.toString()
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {
