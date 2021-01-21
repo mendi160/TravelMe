@@ -37,6 +37,8 @@ class AddressDialog : AppCompatActivity() {
                 Place.Field.NAME,
                 Place.Field.ADDRESS
             )
+        ).setCountries(
+            mutableListOf("IL")
         )
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
@@ -51,10 +53,6 @@ class AddressDialog : AppCompatActivity() {
             }
 
         })
-
-
-
-
         bSave.setOnClickListener {
 
             if (isSourceAddress)
@@ -63,11 +61,8 @@ class AddressDialog : AppCompatActivity() {
                 AddTravelActivity.addressMutableList.add(currentPlace)
                 AddTravelActivity.address.notifyDataSetChanged()
             }
-            Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Address Saved", Toast.LENGTH_SHORT).show()
             this.finish()
-
         }
-
-
     }
 }

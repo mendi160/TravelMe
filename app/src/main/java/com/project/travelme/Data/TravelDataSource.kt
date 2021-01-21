@@ -27,7 +27,7 @@ class TravelDataSource private constructor() : TravelDAO {
     private val countRef = database.getReference("counter");
 
     init {
-        travelRef = database.getReference("Travels/${FirebaseAuth.getInstance().uid.toString()}")
+        travelRef = database.getReference("Travels/$uid")
         travelRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 travelsList.value?.clear()
