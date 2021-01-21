@@ -35,7 +35,8 @@ class AddressDialog : AppCompatActivity() {
             listOf(
                 Place.Field.ID,
                 Place.Field.NAME,
-                Place.Field.ADDRESS
+                Place.Field.ADDRESS,
+                Place.Field.LAT_LNG
             )
         ).setCountries(
             mutableListOf("IL")
@@ -43,7 +44,7 @@ class AddressDialog : AppCompatActivity() {
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                currentPlace = place.address.toString()
+                currentPlace = place.address.toString()+"&"+place.latLng.toString()
 
             }
 
