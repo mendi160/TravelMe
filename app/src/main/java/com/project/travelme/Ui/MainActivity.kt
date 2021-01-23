@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var button: Button = findViewById<Button>(R.id.addButton)
+        val button: Button = findViewById(R.id.addButton)
         button.setOnClickListener {
             val i = Intent(this@MainActivity, AddTravelActivity::class.java)
             startActivity(i)
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             createSignInIntent()
     }
 
-    fun createSignInIntent() {
+    private fun createSignInIntent() {
         // [START auth_fui_create_intent]
         // Choose authentication providers
         val providers = arrayListOf(

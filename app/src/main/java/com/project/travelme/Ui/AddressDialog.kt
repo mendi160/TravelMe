@@ -13,7 +13,7 @@ import com.project.travelme.R
 import kotlin.properties.Delegates
 
 class AddressDialog : AppCompatActivity() {
-    lateinit var bSave: Button
+    private lateinit var bSave: Button
     private var isSourceAddress by Delegates.notNull<Boolean>()
     private lateinit var currentPlace: String
 
@@ -21,7 +21,7 @@ class AddressDialog : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         isSourceAddress = intent.getBooleanExtra("bool", false)
         setContentView(R.layout.address_form)
-        bSave = findViewById<Button>(R.id.bSaveAddress)
+        bSave = findViewById(R.id.bSaveAddress)
         val api = "AIzaSyBUPxQMO2iI0DS_WTeetlcND9mpWaUCyyY"
         Places.initialize(applicationContext, api)
 

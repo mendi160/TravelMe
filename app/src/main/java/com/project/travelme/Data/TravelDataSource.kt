@@ -21,10 +21,10 @@ class TravelDataSource private constructor() : TravelDAO {
     var travelsList = MutableLiveData(mutableListOf<Travel>())
     var requestCount: Int = 0
     private var uid: String = FirebaseAuth.getInstance().uid.toString()
-    lateinit var key: String
+    private lateinit var key: String
     var notifyToTravel: TravelDAO.NotifyToTravelListListener? = null
     private var travelRef: DatabaseReference
-    private val countRef = database.getReference("counter");
+    private val countRef = database.getReference("counter")
 
     init {
         travelRef = database.getReference("Travels/$uid")
@@ -69,8 +69,8 @@ class TravelDataSource private constructor() : TravelDAO {
         val ref3 = ref2?.child("Request_$requestCount")
         if (ref3 != null) {
             key = ref3.push().key.toString()
-            travel.id = key;
-        };
+            travel.id = key
+        }
         ref3?.setValue(travel)?.addOnSuccessListener {
             isSuccessLiveData.postValue(true)
             countRef.child("val").setValue(requestCount + 1)
@@ -99,20 +99,6 @@ class TravelDataSource private constructor() : TravelDAO {
     override fun cancelTravel(travel: Travel) {
         referenceMap[travel.id]!!.removeValue()
         database.getReference("canceledTravels/${travel.id}").setValue(travel)
-    }
-
-    fun getTravelOfUser(string: String) {
-        val ref = database.getReference("Travels")
-        val user = FirebaseAuth.getInstance().currentUser
-        user?.let { ref.child(it.uid) }?.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                requestCount = snapshot.childrenCount.toInt()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
     }
 }
 

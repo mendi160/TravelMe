@@ -45,7 +45,7 @@ class TravelRecyclerViewAdapter(
             it[selectIndex] = it[0]
             it[0] = "Select"
         }
-        company.adapter = ArrayAdapter<String>(
+        company.adapter = ArrayAdapter(
             AuthUI.getApplicationContext(),
             android.R.layout.simple_list_item_1,
             adapterList
@@ -123,7 +123,7 @@ class TravelRecyclerViewAdapter(
                     val operatingCompanyItem = selectedItemView as TextView
                     if (this@ViewHolder.travel.serviceProvider.containsValue(true)) {
                         operatingCompanyItem.text =
-                            this@ViewHolder.travel.serviceProvider.filterValues { it -> it }.keys.elementAt(
+                            this@ViewHolder.travel.serviceProvider.filterValues { it }.keys.elementAt(
                                 0
                             )
                         this@ViewHolder.company.isEnabled = false

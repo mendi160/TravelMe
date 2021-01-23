@@ -23,7 +23,7 @@ class TravelRepository private constructor() {
         val notifyToTravelListListener: TravelDAO.NotifyToTravelListListener =
             object : TravelDAO.NotifyToTravelListListener {
                 override fun onTravelsChanged() {
-                    userTravels.postValue(database!!.getAllTravels().value)
+                    userTravels.postValue(database.getAllTravels().value)
                 }
             }
         database.setNotifyToTravelListListener(notifyToTravelListListener)
@@ -34,9 +34,9 @@ class TravelRepository private constructor() {
     }
 
     fun insert(item: Travel) {
-        Thread() {
+        Thread {
             dao.insertTravel(item)
-        }.start();
+        }.start()
     }
 
     fun updateTravel(travel: Travel) {

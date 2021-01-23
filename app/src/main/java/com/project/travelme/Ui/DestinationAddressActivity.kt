@@ -9,12 +9,12 @@ import com.project.travelme.R
 
 class DestinationAddressActivity : AppCompatActivity() {
 
-    lateinit var mListView: ListView
+    private lateinit var mListView: ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destination_address)
         this.setFinishOnTouchOutside(false)
-        mListView = findViewById<ListView>(R.id.lvAddress)
+        mListView = findViewById(R.id.lvAddress)
         mListView.adapter = AddTravelActivity.address
     }
 

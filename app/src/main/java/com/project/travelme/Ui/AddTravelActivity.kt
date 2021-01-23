@@ -1,7 +1,6 @@
 package com.project.travelme.Ui
 
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -18,7 +17,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.project.travelme.R
 import com.project.travelme.R.id.passengers
-import com.project.travelme.Utils.Converters
 import com.project.travelme.Utils.Enums.Status
 import com.project.travelme.Utils.Util
 import com.project.travelmedrivers.entities.Travel
@@ -28,7 +26,7 @@ import kotlin.properties.Delegates
 
 class AddTravelActivity : AppCompatActivity() {
     private lateinit var viewModel: TravelViewModel
-    lateinit var context: Context
+    private lateinit var context: Context
     private lateinit var etPhoneNumber: TextInputEditText
     private val countryCallingCode = "+972"
     private lateinit var etPassengers: EditText
@@ -40,7 +38,6 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var etEmail: TextInputEditText
     private lateinit var bDestination: Button
     private lateinit var bSave: Button
-    private lateinit var dialog: Dialog
     private var debug = false
 
     private var isSourceAddress by Delegates.notNull<Boolean>()
@@ -51,46 +48,45 @@ class AddTravelActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_travel)
         this.setFinishOnTouchOutside(false)
         viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
-        etPassengers = findViewById<EditText>(passengers)
+        etPassengers = findViewById(passengers)
         etPassengers.addTextChangedListener {
             val text = etPassengers.text.toString()
             if (text != "" && text.toInt() < 0)
                 etPassengers.setText("0")
         }
         //initialize buttons for pick date
-        bDeparture =
-            findViewById<LinearLayout>(R.id.departureDate).findViewById<Button>(R.id.pickDateBtn)
-        bReturn = findViewById<LinearLayout>(R.id.returnDate).findViewById<Button>(R.id.pickDateBtn)
+        bDeparture = findViewById<LinearLayout>(R.id.departureDate).findViewById(R.id.pickDateBtn)
+        bReturn = findViewById<LinearLayout>(R.id.returnDate).findViewById(R.id.pickDateBtn)
         bReturn.isEnabled = false
         bDeparture.setOnClickListener {
-            pickDate(findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView))
+            pickDate(findViewById<LinearLayout>(R.id.departureDate).findViewById(R.id.dateTextView))
 
         }
         bDeparture.text = "Depart Date"
         bReturn.setOnClickListener {
             pickDate(
-                findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(
+                findViewById<LinearLayout>(R.id.returnDate).findViewById(
                     R.id.dateTextView
                 )
             )
         }
         bReturn.text = "Return Date"
-        bSourceAddress = findViewById<Button>(R.id.bSourceAddress)
+        bSourceAddress = findViewById(R.id.bSourceAddress)
         bSourceAddress.setOnClickListener {
             isSourceAddress = true
             startActivity(Intent(this, AddressDialog::class.java).putExtra("bool", isSourceAddress))
 
 
         }
-        bDestination = findViewById<Button>(R.id.bDestinationAddress)
+        bDestination = findViewById(R.id.bDestinationAddress)
         bDestination.setOnClickListener {
             isSourceAddress = false
             startActivity(
                 Intent(this, DestinationAddressActivity::class.java)
             )
         }
-        bSave = findViewById<Button>(R.id.bSave)
-        etPhoneNumber = findViewById<TextInputEditText>(R.id.etPhone)
+        bSave = findViewById(R.id.bSave)
+        etPhoneNumber = findViewById(R.id.etPhone)
         etPhoneNumber.doOnTextChanged { text, _, _, _ ->
             val d = findViewById<TextInputLayout>(R.id.phoneNumber)
             if (Util.isValidPhoneNumber(text.toString(), countryCallingCode)) {
@@ -101,7 +97,7 @@ class AddTravelActivity : AppCompatActivity() {
                 d.hintTextColor = ColorStateList.valueOf(Color.RED)
             }
         }
-        etEmail = findViewById<TextInputEditText>(R.id.tietEmail)
+        etEmail = findViewById(R.id.tietEmail)
         etEmail.doOnTextChanged { text, _, _, _ ->
             val d = findViewById<TextInputLayout>(R.id.tilEmail)
 
@@ -114,9 +110,9 @@ class AddTravelActivity : AppCompatActivity() {
             }
         }
         tvDepartureDate =
-            findViewById<LinearLayout>(R.id.departureDate).findViewById<TextView>(R.id.dateTextView)
+            findViewById<LinearLayout>(R.id.departureDate).findViewById(R.id.dateTextView)
         tvReturnDate =
-            findViewById<LinearLayout>(R.id.returnDate).findViewById<TextView>(R.id.dateTextView)
+            findViewById<LinearLayout>(R.id.returnDate).findViewById(R.id.dateTextView)
 
         firebaseAddressMutableList = mutableListOf()
         viewAddress = mutableListOf()
@@ -159,13 +155,13 @@ class AddTravelActivity : AppCompatActivity() {
     fun pickDate(textV: TextView) {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH).toInt()
+        val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         val departureDate = tvDepartureDate.text.toString()
         val returnDate = tvReturnDate.text.toString()
         val dpd = DatePickerDialog(
             this,
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            { _, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
                 "$dayOfMonth,${monthOfYear + 1},$year".also { textV.text = it }
                 bReturn.isEnabled = true
@@ -193,9 +189,8 @@ class AddTravelActivity : AppCompatActivity() {
             val destAddress = firebaseAddressMutableList
             val phoneNumber = etPhoneNumber.text.toString()
             val passengers = etPassengers.text.toString()
-            val status: Status =
-                Converters.fromStringToStatus(findViewById<TextInputEditText>(R.id.etStatus1).text.toString())!!
-            val list = listOf<String>(
+            val status: Status = Status.SENT
+            val list = listOf(
                 name,
                 email,
                 departureDate,
@@ -226,9 +221,11 @@ class AddTravelActivity : AppCompatActivity() {
             travel.returnDate = returnDate
             travel.status = status
             try {
-                viewModel.insertTravel(context, travel)
+                viewModel.insertTravel(travel)
             } catch (e: Exception) {
                 print(e.message)
+            } finally {
+                finish()
             }
         } else {
             val travel = Travel()
@@ -239,14 +236,14 @@ class AddTravelActivity : AppCompatActivity() {
             travel.sourceAdders =
                 "Yehoshu'a Bin Nun St 2, Bnei Brak, Israel&lat/lng: (32.0930115,34.8232758)"
             travel.destinationAddress =
-                mutableListOf<String>("Dalton, Israel&lat/lng: (33.016553,35.489911)")
+                mutableListOf("Dalton, Israel&lat/lng: (33.016553,35.489911)")
             travel.passengers = 10
             travel.departureDate = "12,2,2021"
             travel.returnDate = "15,2,2021"
             travel.status = Status.SENT
 
             try {
-                viewModel.insertTravel(context, travel)
+                viewModel.insertTravel(travel)
             } catch (e: Exception) {
                 print(e.message)
             } finally {

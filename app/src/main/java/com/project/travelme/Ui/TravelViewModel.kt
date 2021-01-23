@@ -1,17 +1,14 @@
 package com.project.travelme.Ui
 
 import android.annotation.SuppressLint
-import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.project.travelme.Data.TravelRepository
 import com.project.travelme.Utils.Enums.Status
 import com.project.travelmedrivers.entities.Travel
 
-class TravelViewModel() : ViewModel() {
+class TravelViewModel : ViewModel() {
 
-    lateinit var ld: LiveData<Boolean>
     var travelList = MutableLiveData<List<Travel>>()
     val repo: TravelRepository
 
@@ -25,7 +22,7 @@ class TravelViewModel() : ViewModel() {
     @SuppressLint("RestrictedApi")
 
 
-    fun insertTravel(context: Context, travel: Travel) {
+    fun insertTravel(travel: Travel) {
         repo.insert(travel)
     }
 

@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.travelme.R
 
 class RequestsActivity : AppCompatActivity() {
-   // lateinit var model: TravelViewModel
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
